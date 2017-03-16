@@ -3,11 +3,11 @@
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://koliver.users.cs.helsinki.fi/blabber/)
-* [Linkki dokumentaatiooni](https://github.com/Corned/Blabber)
+* [Linkki dokumentaatiooni](https://github.com/Corned/Blabber/blob/master/doc/blabberdokumentaatio.pdf)
 
 ## Työn aihe
 
-Hulvattoman hausta twitter kopio. 
+Hulvattoman hausta twitter kopio.
 =======
 
 # Blabber
