@@ -3,7 +3,7 @@
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://koliver.users.cs.helsinki.fi/blabber/)
-* [Linkki dokumentaatiooni](https://github.com/Corned/Blabber/blob/master/doc/blabberdokumentaatio.pdf)
+* [Linkki dokumentaatiooni](https://github.com/Corned/Blabber/blob/master/doc/BlabberDokumentaatio.pdf)
 
 ## Työn aihe
 
