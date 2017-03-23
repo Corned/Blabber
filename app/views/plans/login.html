@@ -1,7 +1,20 @@
-<!--
+{% extends "base.html" %}
+{% block content %}
+  <h1>Sign in</h1>
 
-Sign in / Sign up page for Blabber
+  <form>
+    <!-- Tekstikenttä käyttäjätunnukselle -->
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control">
+    </div>
 
--->
+    <!-- Salasanakenttä salasanalle -->
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control">
+    </div>
 
-<h1>LOGIN</h1>
+    <button type="submit" class="btn btn-primary">Log in</button>
+  </form>
+{% endblock %}

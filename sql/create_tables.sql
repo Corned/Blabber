@@ -1,46 +1,52 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
+CREATE TABLE Player(
+    id SERIAL PRIMARY KEY,
+    name varchar(50) NOT NULL,
+    password varchar(50) NOT NULL
+);
+
 CREATE TABLE Account(
     id SERIAL PRIMARY KEY,
-    username varchar(32),
-    password varchar(32)
-)
+    username varchar(32) NOT NULL,
+    password varchar(32) NOT NULL
+);
 
 CREATE TABLE AccountSettings(
     account_id INTEGER REFERENCES Account(id)
-)
+);
 
 CREATE TABLE AccountFollow(
     account_id INTEGER REFERENCES Account(id),
-    follow_id INTEGER
-)
+    follow_id INTEGER NOT NULL
+);
 
 
-CREATE TABLE Bleb(
+CREATE TABLE Blab(
     id SERIAL PRIMARY KEY,
-    body varchar(256)
-)
+    body varchar(256) NOT NULL
+);
 
-CREATE TABLE AccountBleb(
+CREATE TABLE AccountBlab(
     account_id INTEGER REFERENCES Account(id),
-    bleb_id INTEGER REFERENCES Bleb(id)
-)
+    blab_id INTEGER REFERENCES Blab(id)
+);
 
 
-CREATE TABLE Like(
+CREATE TABLE Thumb(
     id SERIAL PRIMARY KEY
-)
+);
 
-CREATE TABLE AccountLike(
+CREATE TABLE AccountThumb(
     account_id INTEGER REFERENCES Account(id),
-    like_id INTEGER REFERENCES Like(id)
-)
+    thumb_id INTEGER REFERENCES Thumb(id)
+);
 
 
-CREATE TABLE Rebleb(
+CREATE TABLE Reblab(
     id SERIAL PRIMARY KEY
-)
+);
 
-CREATE TABLE AccountRebleb(
+CREATE TABLE AccountReblab(
     account_id INTEGER REFERENCES Account(id),
-    rebleb_id INTEGER REFERENCES Rebleb(id)
-)
+    reblab_id INTEGER REFERENCES Reblab(id)
+);
