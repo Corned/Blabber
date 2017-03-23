@@ -1,1 +1,10 @@
 -- Lisää INSERT INTO lauseet tähän tiedostoon
+INSERT INTO Account(username, password) VALUES ("Corned", "qwerty1234");
+INSERT INTO Account(username, password) VALUES ("Maissitettu", "asdfgh1234");
+
+INSERT INTO AccountFollow(account_id, follow_id) VALUES (1, 2);
+
+INSERT INTO Bleb(id, body) VALUES (1, "Hello world!");
+INSERT INTO Bleb(id, body) VALUES (2, "Second Bleb!");
+INSERT INTO AccountBleb(1, 1);
+INSERT INTO AccountBleb(1, 2);
