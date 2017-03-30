@@ -25,27 +25,27 @@
     }
 
     public static function newblab() {
-      View::make("plans/newblab.html");
+      View::make("blab/new.html");
     }
 
     public static function editblab() {
-      View::make("plans/editblab.html");
+      View::make("blab/edit.html");
     }
 
     public static function feed() {
-      View::make("plans/feed.html");
+      View::make("user/feed.html");
     }
 
     public static function notifications() {
-      View::make("plans/notifications.html");
+      View::make("user/notifications.html");
     }
 
     public static function profile() {
-      View::make("plans/profile.html");
+      View::make("user/profile.html");
     }
 
     public static function settings() {
-      View::make("plans/settings.html");
+      View::make("user/settings.html");
     }
 
   }

@@ -1,21 +1,36 @@
 <?php
 
-  $routes->get('/', function() {
-    HelloWorldController::index();
-  });
-
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });
 
 
-  $routes->get('/login', function() {
-    HelloWorldController::login();
+  $routes->get('/', function() {
+    BlabController::globalFeed();
   });
 
   $routes->get('/feed', function() {
-    HelloWorldController::feed();
+    BlabController::globalFeed();
   });
+
+  /*$routes->get('/feed', function() {
+    BlabController::userFeed();
+  });
+  */
+
+  $routes->get('/blab/new', function() {
+    BlabController::newblab();
+  });
+
+  $routes->get('/blab/edit/:id', function($id) {
+    BlabController::editblab($id);
+  });
+
+  $routes->get('/blab/:id', function($id) {
+    BlabController::showblab($id);
+  });
+
+
 
   $routes->get('/notifications', function() {
     HelloWorldController::notifications();

@@ -6,7 +6,7 @@
 		}
 
 		public static function all() {
-			$query = DB::connection()->prepare('SELECT * FROM Blab');
+			$query = DB::connection()->prepare('SELECT * FROM Blab ORDER BY Blab.id DESC');
 			$query->execute();
 
 			$rows = $query->fetchAll();
