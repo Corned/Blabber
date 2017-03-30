@@ -1,6 +1,6 @@
 <?php
 	class Blab extends BaseModel {
-		public $id, $body;
+		public $id, $body, $deleted;
 		public function __construct($attributes) {
 			parent::__construct($attributes);
 		}
@@ -15,7 +15,8 @@
 			foreach($rows as $row) {
 				$blabs[] = new Blab(array(
 					'id' => $row['id'],
-					'body' => $row['body']
+					'body' => $row['body'],
+					'deleted' => $row['deleted']
 				));
 			}
 
@@ -30,11 +31,25 @@
 			if ($row) {
 				$blab = new Blab(array(
 					'id' => $row['id'],
-					'body' => $row['body']
+					'body' => $row['body'],
+					'deleted' => $row['deleted']
 				));
 				return $blab;
 			}
 
 			return null;
+		}
+
+
+		public function save() {
+			$query = DB::connection()->prepare('INSERT INTO Blab (body, deleted) VALUES (:body, :deleted) RETURNING id');
+
+			$query->bindValue(':body', $this->body, PDO::PARAM_STR);
+			$query->bindValue(':deleted', $this->deleted, PDO::PARAM_BOOL);
+			$query->execute();
+
+			$row = $query->fetch();
+
+			$this->id = $row['id'];
 		}
 	}

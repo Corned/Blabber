@@ -1,7 +1,8 @@
 CREATE TABLE Account(
-    id SERIAL PRIMARY KEY,
+    id SERIAL NOT NULL,
     username varchar(32) NOT NULL,
-    password varchar(32) NOT NULL
+    password varchar(32) NOT NULL,
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE AccountSettings(
@@ -15,9 +16,10 @@ CREATE TABLE AccountFollow(
 
 
 CREATE TABLE Blab(
-    id SERIAL PRIMARY KEY,
+    id SERIAL NOT NULL,
     body varchar(256) NOT NULL,
-    deleted boolean NOT NULL
+    deleted boolean DEFAULT FALSE,
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE AccountBlab(

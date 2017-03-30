@@ -6,13 +6,13 @@
 			View::make('user/feed.html', array('blabs' => $blabs));	
 		}
 
+		public static function create() {
+			View::make('blab/new.html');
+		}
+
 		public static function show($id) {
 			$blab = Blab::find($id);
 			View::make('blab/show.html', array('blab' => $blab));
-		}
-
-		public static function create() {
-			View::make('blab/new.html');
 		}
 
 		public static function edit($id) {
@@ -25,10 +25,10 @@
 			$params = $_POST;
 			$blab = new Blab(array(
 				'body' => $params['body'],
-				'deleled' => false
+				'deleted' => FALSE
 			));
 
-			//$blab->save();
+			$blab->save();
 			Redirect::to('/blab/' . $blab->id, array('message' => 'New Blab Sent!'));
 		}
 	}
