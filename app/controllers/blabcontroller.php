@@ -26,7 +26,6 @@
 			Redirect::to('/blab/' . $params["id"], array('message' => 'Blab Updated!'));
 		}
 
-
 		// Post
 		public static function store() {
 			$params = $_POST;
