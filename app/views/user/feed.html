@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Global Feed</h1>
+  <h1>Global Feed</br>&emsp;<small>What are people blabling about?</small></h1>
 
   <p>
     <a href="{{base_path}}/blab/new" class="btn btn-success">New Blab</a>
@@ -9,16 +9,22 @@
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th>blab id (user)</th>
+        <th>Username</th>
         <th>Message</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
 
     <tbody>
       {% for blab in blabs %}
         <tr>
-          <td><a href="{{base_path}}/blab/{{blab.id}}">{{blab.id}}</a></td>
+          <td width="10%"><a href="#">OnlyTwentyCharacters</a></td>
           <td>{{blab.body}}</td>
+          <td width="6%"><a href="{{base_path}}/blab/{{blab.id}}" class="btn btn-default">SHOW</a></td>
+          <td width="6%"><a href="{{base_path}}/blab/edit/{{blab.id}}" class="btn btn-warning">EDIT</a></td>
+          <td width="8%"><a href="{{base_path}}/blab/delete/{{blab.id}}" class="btn btn-danger">DELETE</a></td>
         </tr>
       {% endfor %}
     </tbody>

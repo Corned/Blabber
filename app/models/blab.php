@@ -40,6 +40,15 @@
 			return null;
 		}
 
+		public static function update($id, $body) {
+			$blab = Blab::find($id);
+			if ($blab) {
+				$query = DB::connection()->prepare('UPDATE Blab SET body = :body WHERE id = :id RETURNING id');
+				$query->bindValue(':body', $body, PDO::PARAM_STR);
+				$query->bindValue(':id', $id, PDO::PARAM_INT);
+				$query->execute();
+			}
+		}
 
 		public function save() {
 			$query = DB::connection()->prepare('INSERT INTO Blab (body, deleted) VALUES (:body, :deleted) RETURNING id');

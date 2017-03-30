@@ -9,10 +9,7 @@
         //BlabController::userFeed();
     });
 
-    /*$routes->get('/feed', function() {
 
-    });
-    */
 
     // Blab Gets
     $routes->get('/blab/', function() {
@@ -27,6 +24,10 @@
         BlabController::edit($id);
     });
 
+    /*$routes->get('/blab/delete/:id', function($id) {
+        BlabController::edit($id);
+    });*/
+
     $routes->get('/blab/:id', function($id) {
         BlabController::show($id);
     });
@@ -35,6 +36,14 @@
     $routes->post('/blab/new', function() {
         BlabController::store();
     });
+
+    $routes->post('/blab/edit', function() {
+        BlabController::update();
+    });
+
+    /*$routes->post('/blab/delete', function() {
+        BlabController::store();
+    });*/
 
 
 
@@ -52,7 +61,7 @@
     });
 
 
-    
+
 
     $routes->get('/(:any)', function() {
         BlabController::globalFeed();

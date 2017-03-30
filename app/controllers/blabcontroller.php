@@ -16,7 +16,14 @@
 		}
 
 		public static function edit($id) {
-			View::make('blab/edit.html');
+			$blab = Blab::find($id);
+			View::make('blab/edit.html', array('blab' => $blab));
+		}
+
+		public static function update() {
+			$params = $_POST;
+			Blab::update($params["id"], $params["newbody"]);
+			Redirect::to('/blab/' . $params["id"], array('message' => 'Blab Updated!'));
 		}
 
 
