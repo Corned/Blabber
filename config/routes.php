@@ -1,45 +1,59 @@
 <?php
 
-  $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
-  });
+    $routes->get('/hiekkalaatikko', function() {
+        HelloWorldController::sandbox();
+    });
+
+    $routes->get('/feed', function() {
+        BlabController::globalFeed();
+        //BlabController::userFeed();
+    });
+
+    /*$routes->get('/feed', function() {
+
+    });
+    */
+
+    // Blab Gets
+    $routes->get('/blab/', function() {
+        Redirect::to('');
+    });
+
+    $routes->get('/blab/new', function() {
+        BlabController::create();
+    });
+
+    $routes->get('/blab/edit/:id', function($id) {
+        BlabController::edit($id);
+    });
+
+    $routes->get('/blab/:id', function($id) {
+        BlabController::show($id);
+    });
+
+    // Blab Posts
+    $routes->post('/blab/new', function() {
+        BlabController::store();
+    });
 
 
-  $routes->get('/', function() {
-    BlabController::globalFeed();
-  });
 
-  $routes->get('/feed', function() {
-    BlabController::globalFeed();
-  });
+    // stuff
+    $routes->get('/notifications', function() {
+        HelloWorldController::notifications();
+    });
 
-  /*$routes->get('/feed', function() {
-    BlabController::userFeed();
-  });
-  */
+    $routes->get('/profile', function() {
+        HelloWorldController::profile();
+    });
 
-  $routes->get('/blab/new', function() {
-    BlabController::newblab();
-  });
-
-  $routes->get('/blab/edit/:id', function($id) {
-    BlabController::editblab($id);
-  });
-
-  $routes->get('/blab/:id', function($id) {
-    BlabController::showblab($id);
-  });
+    $routes->get('/settings', function() {
+        HelloWorldController::settings();
+    });
 
 
+    
 
-  $routes->get('/notifications', function() {
-    HelloWorldController::notifications();
-  });
-
-  $routes->get('/profile', function() {
-    HelloWorldController::profile();
-  });
-
-  $routes->get('/settings', function() {
-    HelloWorldController::settings();
-  });
+    $routes->get('/(:any)', function() {
+        BlabController::globalFeed();
+    });
