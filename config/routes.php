@@ -28,7 +28,7 @@
         BlabController::edit($id);
     });*/
 
-    $routes->get('/blab/:id', function($id) {
+    $routes->get('/blab/show/:id', function($id) {
         BlabController::show($id);
     });
 
@@ -58,6 +58,10 @@
 
     $routes->get('/settings', function() {
         HelloWorldController::settings();
+    });
+
+    $routes->get('/login', function() {
+        HelloWorldController::login();
     });
 
 

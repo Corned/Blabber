@@ -13,11 +13,12 @@
     public static function sandbox(){
       // Testaa koodiasi täällä
       //View::make("helloworld.html");
-      $blab = Blab::find(1);
-      $blabs = Blab::all();
+      $b = new Blab(array(
+          'body' => ""
+        ));
 
-      Kint::dump($blab);
-      Kint::dump($blabs);
+      Kint::dump($b->errors());
+      Kint::dump($b->body);
     }
 
     public static function login() {

@@ -3,6 +3,7 @@
 		public $id, $body, $deleted;
 		public function __construct($attributes) {
 			parent::__construct($attributes);
+			$this->validators = array("validate_body");
 		}
 
 		public static function all() {
@@ -41,13 +42,11 @@
 		}
 
 		public static function update($id, $body) {
-			$blab = Blab::find($id);
-			if ($blab) {
-				$query = DB::connection()->prepare('UPDATE Blab SET body = :body WHERE id = :id RETURNING id');
-				$query->bindValue(':body', $body, PDO::PARAM_STR);
-				$query->bindValue(':id', $id, PDO::PARAM_INT);
-				$query->execute();
-			}
+			$query = DB::connection()->prepare('UPDATE Blab SET body = :body WHERE id = :id');
+
+			$query->bindValue(':id', $id, PDO::PARAM_INT);
+			$query->bindValue(':body', $body, PDO::PARAM_STR);
+			$query->execute();
 		}
 
 		public function save() {
@@ -61,4 +60,17 @@
 
 			$this->id = $row['id'];
 		}
+
+		// Validate
+		public function validate_body() {
+			$errs = array();
+			if ($this->is_not_null($this->body) == false && $this->validate_string_length($this->body, 0) == false) { 
+				// I cannot compare $this->body to null.
+				// unexpected T_VARIABLE
+				$errs[] = 'Your message must not be empty!';
+			}
+
+			return $errs;
+		}
 	}
+
