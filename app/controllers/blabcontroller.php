@@ -47,7 +47,8 @@
 			$errs = $blab->errors();
 
 			if (count($errs) == 0) {
-				$blab->save();
+				$blab->save(parent::get_user_logged_in()->id);
+				Kint::dump(parent::get_user_logged_in()->id);
 				Redirect::to("/blab/show/" . $blab->id, array("message" => "Your blab was published successfully!"));
 			} else {
 				View::make('/blab/new.html', array("errors" => $errs, "attributes" => $attributes));

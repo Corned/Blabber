@@ -17,4 +17,22 @@
 	    		Redirect::to("/", array("message" => "Welcome back " . $user->username . "!"));
 	    	}
 	    }
+
+	    public static function profile($username) {
+			if ($username == null) {
+				// to own profile if logged in
+				$username = parent::get_user_logged_in()->username;
+				if (parent::get_user_logged_in()) {
+					$username = parent::get_user_logged_in()->username;
+					Redirect::to("/profile/" . $username);
+				} else {
+					Redirect::to("/login");
+				}
+			}
+
+			$user = User::find_by_username($username);
+			$blabs = Blab::find_by_accountid($user->id);
+
+			View::make("user/profile.html", array("user" => $user, "blabs" => $blabs));
+	    }
 	}

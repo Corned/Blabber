@@ -43,6 +43,26 @@
 			return null;
 		}
 
+		public static function find_by_accountid($account_id) {
+			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.username, Blab.body, Blab.deleted FROM Blab, AccountBlab, Account WHERE Blab.id = AccountBlab.blab_id AND AccountBlab.account_id = :account_id ORDER BY Blab.id DESC');
+			$query->bindValue(':account_id', $account_id, PDO::PARAM_STR);
+			$query->execute();
+
+			$rows = $query->fetchAll();
+			$blabs = array();
+
+			foreach($rows as $row) {
+				$blabs[] = new Blab(array(
+					'id' => $row['id'],
+					"username" => $row["username"],
+					'body' => $row['body'],
+					'deleted' => $row['deleted']
+				));
+			}
+
+			return $blabs;
+		}
+
 		public static function update($id, $body) {
 			$query = DB::connection()->prepare('UPDATE Blab SET body = :body WHERE id = :id');
 
@@ -51,20 +71,32 @@
 			$query->execute();
 		}
 
-		public function save() {
+		public function save($account_id) {
 			$query = DB::connection()->prepare('INSERT INTO Blab (username, body, deleted) VALUES (:username, :body, :deleted) RETURNING id');
 
 			$query->bindValue(':username', $this->username, PDO::PARAM_STR);
 			$query->bindValue(':body', $this->body, PDO::PARAM_STR);
 			$query->bindValue(':deleted', $this->deleted, PDO::PARAM_BOOL);
 			$query->execute();
-
 			$row = $query->fetch();
+
+			// many-to-meny
+			$query = DB::connection()->prepare('INSERT INTO AccountBlab (account_id, blab_id) VALUES (:account_id, :blab_id)');
+
+			$query->bindValue(':account_id', $account_id, PDO::PARAM_STR);
+			$query->bindValue(':blab_id', $row['id'], PDO::PARAM_STR);
+			$query->execute();
+
 
 			$this->id = $row['id'];
 		}
 
 		public function destroy() {
+			$query = DB::connection()->prepare('DELETE FROM AccountBlab WHERE blab_id = :id');
+
+			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
+			$query->execute();
+
 			$query = DB::connection()->prepare('DELETE FROM Blab WHERE id = :id');
 
 			$query->bindValue(':id', $this->id, PDO::PARAM_INT);

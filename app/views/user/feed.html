@@ -26,7 +26,7 @@
     <tbody>
       {% for blab in blabs %}
         <tr>
-          <td width="10%"><a href="/profile/{{blab.username}}">{{blab.username}}</a></td>
+          <td width="10%"><a href="{{base_path}}/profile/{{blab.username}}">{{blab.username}}</a></td>
           <td>{{blab.body}}</td>
           <td width="6%"><a href="{{base_path}}/blab/show/{{blab.id}}" class="btn btn-default">EXPAND</a></td>
         </tr>

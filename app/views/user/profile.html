@@ -1,10 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Profile of Corned</br>&emsp;<small>A description here perhaps?</small></h1>
+  <h1>Profile of {{user.username}}</br>&emsp;<small>Funny subtitle.</small></h1>
 
-	<a href="#" class="btn btn-success">Follow</a>
+  {% if message %}
+      <div class="alert alert-success">
+          <ul>
+              <li>{{message}}</li>
+          </ul>
+      </div>
+  {% endif %}
 
-<!-- Tänne tulee tavaraa kun käyttäjätilit on luotu -->
+  <p>
+    <a href="#"" class="btn btn-success">Follow?</a>
+  </p>
 
-  
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Message</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for blab in blabs %}
+        <tr>
+          <td width="10%"><a href="{{base_path}}/profile/{{blab.username}}">{{blab.username}}</a></td>
+          <td>{{blab.body}}</td>
+          <td width="6%"><a href="{{base_path}}/blab/show/{{blab.id}}" class="btn btn-default">EXPAND</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
