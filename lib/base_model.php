@@ -31,8 +31,12 @@
       return isset($string) && $string != '';
     }
 
-    public function validate_string_length($string, $length) {
+    public function validate_string_length_longer_than($string, $length) {
       return strlen($string) > $length;
+    }
+
+    public function validate_string_length_shorter_than($string, $length) {
+      return strlen($string) < $length;
     }
 
   }

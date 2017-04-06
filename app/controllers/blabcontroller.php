@@ -23,8 +23,10 @@
 			View::make('blab/edit.html', array('blab' => $blab));
 		}
 
-		public static function destroy($id) {
+		// Lomakkeen esittely
+		public static function delete($id) {
 			$blab = Blab::find($id);
+			View::make('blab/delete.html', array('blab' => $blab));
 		}
 
 
@@ -32,6 +34,7 @@
 		public static function store() {
 			$params = $_POST;
 			$attributes = array(
+				'username' => parent::get_user_logged_in()->username,
 				'body' => $params['body'],
 				'deleted' => FALSE
 			);
@@ -65,5 +68,12 @@
 			} else {
 				View::make("blab/edit.html", array("errors" => $errors, "attributes" => $attributes));
 			}
+		}
+
+		public static function destroy() {
+			$params = $_POST;
+			$blab = new Blab(array("id" => $params["id"]));
+			$blab->destroy();
+			Redirect::to("/feed", array("message" => "Blab was deleted successfully!"));
 		}
 	}

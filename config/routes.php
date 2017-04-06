@@ -24,12 +24,12 @@
         BlabController::edit($id);
     });
 
-    /*$routes->get('/blab/delete/:id', function($id) {
-        BlabController::edit($id);
-    });*/
-
     $routes->get('/blab/show/:id', function($id) {
         BlabController::show($id);
+    });
+
+    $routes->get("/blab/delete/:id", function($id) {
+        BlabController::delete($id);
     });
 
     // Blab Posts
@@ -41,9 +41,22 @@
         BlabController::update();
     });
 
-    /*$routes->post('/blab/delete', function() {
-        BlabController::store();
-    });*/
+    $routes->post('/blab/delete', function() {
+        BlabController::destroy();
+    });
+
+
+    // ...
+    $routes->get('/login', function() {
+        UserController::login();
+    });
+
+    $routes->post("/login", function() {
+        UserController::handle_login();
+    });
+
+
+
 
 
 
@@ -59,12 +72,6 @@
     $routes->get('/settings', function() {
         HelloWorldController::settings();
     });
-
-    $routes->get('/login', function() {
-        HelloWorldController::login();
-    });
-
-
 
 
     $routes->get('/(:any)', function() {

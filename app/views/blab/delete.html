@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Delete?</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Blab ID</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+          <td width="10%"><a href="#">{{blab.username}}</a></td>
+          <td width="6%">{{blab.id}}</td>
+          <td>{{blab.body}}</td>
+        </tr>
+    </tbody>
+  </table>  
+
+  <form method="post" action="{{base_path}}/blab/delete">
+      <input type="hidden" value={{blab.id}} name="id"/>
+      <div class="form-group">
+          <button type="submit" class="btn btn-danger">Delete?</button>
+      </div>
+  </form>
+
+{% endblock %}

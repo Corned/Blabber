@@ -10,9 +10,9 @@ Yleisiä linkkejä:
 Hulvattoman hausta twitter kopio.
 =======
 
-# Blabber
-Twitter Clone for Tsoha2017-4
->>>>>>> 88a23dc05ff4848b3e18e63f305ee16bdca04432
+Voit kirjautua sisään menemällä [kirjautumissivulle](http://koliver.users.cs.helsinki.fi/blabber/login). Käyttäjätunnus ja salasana ovat kumpikin "admin".
+
+
 
 ## Bootstrap dokumentaatio
 * [Typography](http://getbootstrap.com/css/#type)

@@ -21,10 +21,6 @@
       Kint::dump($b->body);
     }
 
-    public static function login() {
-      View::make("plans/login.html");
-    }
-
     public static function newblab() {
       View::make("blab/new.html");
     }

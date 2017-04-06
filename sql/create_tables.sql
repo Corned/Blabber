@@ -10,13 +10,14 @@ CREATE TABLE AccountSettings(
 );
 
 CREATE TABLE AccountFollow(
-    account_id INTEGER REFERENCES Account(id),
+    user_id INTEGER REFERENCES Account(id),
     follow_id INTEGER NOT NULL
 );
 
 
 CREATE TABLE Blab(
     id SERIAL NOT NULL,
+    username varchar(20) NOT NULL,
     body varchar(256) NOT NULL,
     deleted boolean DEFAULT FALSE,
     PRIMARY KEY(id)

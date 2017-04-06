@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Global Feed</br>&emsp;<small>What are people blabling about?</small></h1>
+  <h1>Global Feed</br>&emsp;<small>What are people blabbing about?</small></h1>
+
+  {% if message %}
+      <div class="alert alert-success">
+          <ul>
+              <li>{{message}}</li>
+          </ul>
+      </div>
+  {% endif %}
 
   <p>
     <a href="{{base_path}}/blab/new" class="btn btn-success">New Blab</a>
@@ -12,19 +20,15 @@
         <th>Username</th>
         <th>Message</th>
         <th></th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
 
     <tbody>
       {% for blab in blabs %}
         <tr>
-          <td width="10%"><a href="#">OnlyTwentyCharacters</a></td>
+          <td width="10%"><a href="/profile/{{blab.username}}">{{blab.username}}</a></td>
           <td>{{blab.body}}</td>
-          <td width="6%"><a href="{{base_path}}/blab/{{blab.id}}" class="btn btn-default">SHOW</a></td>
-          <td width="6%"><a href="{{base_path}}/blab/edit/{{blab.id}}" class="btn btn-warning">EDIT</a></td>
-          <td width="8%"><a href="{{base_path}}/blab/delete/{{blab.id}}" class="btn btn-danger">DELETE</a></td>
+          <td width="6%"><a href="{{base_path}}/blab/show/{{blab.id}}" class="btn btn-default">EXPAND</a></td>
         </tr>
       {% endfor %}
     </tbody>
