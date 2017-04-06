@@ -32,6 +32,10 @@
 
 		// Post - Create new blab
 		public static function store() {
+			if (parent::get_user_logged_in() == null) {
+				Redirect::to("/login");
+			}
+
 			$params = $_POST;
 			$attributes = array(
 				'username' => parent::get_user_logged_in()->username,
