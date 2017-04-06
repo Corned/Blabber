@@ -55,25 +55,16 @@
         UserController::handle_login();
     });
 
-
-
-
-
-
-    // stuff
-    $routes->get('/notifications', function() {
-        HelloWorldController::notifications();
+    $routes->get('/profile/:username', function($username) {
+        UserController::profile($username);
     });
 
-    $routes->get('/profile', function() {
-        HelloWorldController::profile();
+    $routes->get('/profile/', function() {
+        UserController::profile(null);
     });
 
-    $routes->get('/settings', function() {
-        HelloWorldController::settings();
-    });
 
 
     $routes->get('/(:any)', function() {
-        BlabController::globalFeed();
+        Redirect::to("/feed");
     });
