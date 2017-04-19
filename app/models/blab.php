@@ -1,6 +1,6 @@
 <?php
 	class Blab extends BaseModel {
-		public $id, $username, $body, $deleted;
+		public $id, $account_id, $username, $body, $deleted;
 		public function __construct($attributes) {
 			parent::__construct($attributes);
 			$this->validators = array("validate_body");
@@ -16,9 +16,9 @@
 			foreach($rows as $row) {
 				$blabs[] = new Blab(array(
 					'id' => $row['id'],
+					"account_id" => $row["account_id"],
 					"username" => $row["username"],
-					'body' => $row['body'],
-					'deleted' => $row['deleted']
+					'body' => $row['body']
 				));
 			}
 
@@ -33,9 +33,9 @@
 			if ($row) {
 				$blab = new Blab(array(
 					'id' => $row['id'],
+					"account_id" => $row["account_id"],
 					'username' => $row['username'],
-					'body' => $row['body'],
-					'deleted' => $row['deleted']
+					'body' => $row['body']
 				));
 				return $blab;
 			}
@@ -44,7 +44,7 @@
 		}
 
 		public static function find_by_accountid($account_id) {
-			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.username, Blab.body, Blab.deleted FROM Blab, AccountBlab, Account WHERE Blab.id = AccountBlab.blab_id AND AccountBlab.account_id = :account_id ORDER BY Blab.id DESC');
+			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Account WHERE Blab.account_id =:account_id ORDER BY Blab.id DESC');
 			$query->bindValue(':account_id', $account_id, PDO::PARAM_STR);
 			$query->execute();
 
@@ -54,13 +54,69 @@
 			foreach($rows as $row) {
 				$blabs[] = new Blab(array(
 					'id' => $row['id'],
+					"account_id" => $row["account_id"],
 					"username" => $row["username"],
-					'body' => $row['body'],
-					'deleted' => $row['deleted']
+					'body' => $row['body']
 				));
 			}
 
 			return $blabs;
+		}
+
+		public static function find_favourites_by_accountid($account_id) {
+			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Account, Favourite WHERE Blab.id = Favourite.blab_id AND Favourite.account_id = :account_id ORDER BY Blab.id DESC');
+			$query->bindValue(':account_id', $account_id, PDO::PARAM_STR);
+			$query->execute();
+
+			$rows = $query->fetchAll();
+			$blabs = array();
+
+			foreach($rows as $row) {
+				$blabs[] = new Blab(array(
+					'id' => $row['id'],
+					"account_id" => $row["account_id"],
+					"username" => $row["username"],
+					'body' => $row['body']
+				));
+			}
+
+			return $blabs;
+		}
+
+		public static function is_favourite($blab_id, $account_id) {
+			$query = DB::connection()->prepare('SELECT Favourite.account_id, Favourite.blab_id FROM Favourite WHERE Favourite.blab_id = :blab_id AND Favourite.account_id = :account_id LIMIT 1');
+
+			$query->bindValue(":account_id", $account_id, PDO::PARAM_INT);
+			$query->bindValue(":blab_id", $blab_id, PDO::PARAM_INT);
+			$query->execute();
+			$row = $query->fetch();
+
+			return !($row == null);
+		}
+
+		public static function toggle_favourite($blab_id, $account_id) {
+			$query = DB::connection()->prepare('SELECT Favourite.account_id, Favourite.blab_id FROM Favourite WHERE Favourite.account_id = :account_id AND Favourite.blab_id = :blab_id LIMIT 1');
+
+			$query->bindValue(":account_id", $account_id, PDO::PARAM_INT);
+			$query->bindValue(":blab_id", $blab_id, PDO::PARAM_INT);
+			$query->execute();
+			$row = $query->fetch();
+
+			if ($row == null) {
+				// Create favourite
+				$query = DB::connection()->prepare('INSERT INTO Favourite(account_id, blab_id) VALUES (:account_id, :blab_id)');
+				$query->bindValue(":account_id", $account_id, PDO::PARAM_INT);
+				$query->bindValue(":blab_id", $blab_id, PDO::PARAM_INT);
+				$query->execute();
+				return true;
+			} else {
+				// Remove favourite
+				$query = DB::connection()->prepare('DELETE FROM Favourite WHERE Favourite.account_id = :account_id AND Favourite.blab_id = :blab_id');
+				$query->bindValue(":account_id", $account_id, PDO::PARAM_INT);
+				$query->bindValue(":blab_id", $blab_id, PDO::PARAM_INT);
+				$query->execute();
+				return false;
+			}
 		}
 
 		public static function update($id, $body) {
@@ -72,33 +128,23 @@
 		}
 
 		public function save($account_id) {
-			$query = DB::connection()->prepare('INSERT INTO Blab (username, body, deleted) VALUES (:username, :body, :deleted) RETURNING id');
+			$query = DB::connection()->prepare('INSERT INTO Blab (account_id, username, body) VALUES (:account_id, :username, :body) RETURNING id');
 
+			$query->bindValue(":account_id", $account_id, PDO::PARAM_INT);
 			$query->bindValue(':username', $this->username, PDO::PARAM_STR);
 			$query->bindValue(':body', $this->body, PDO::PARAM_STR);
-			$query->bindValue(':deleted', $this->deleted, PDO::PARAM_BOOL);
 			$query->execute();
 			$row = $query->fetch();
-
-			// many-to-meny
-			$query = DB::connection()->prepare('INSERT INTO AccountBlab (account_id, blab_id) VALUES (:account_id, :blab_id)');
-
-			$query->bindValue(':account_id', $account_id, PDO::PARAM_STR);
-			$query->bindValue(':blab_id', $row['id'], PDO::PARAM_STR);
-			$query->execute();
-
 
 			$this->id = $row['id'];
 		}
 
 		public function destroy() {
-			$query = DB::connection()->prepare('DELETE FROM AccountBlab WHERE blab_id = :id');
-
+			$query = DB::connection()->prepare('DELETE FROM Blab WHERE id = :id');
 			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
 			$query->execute();
 
-			$query = DB::connection()->prepare('DELETE FROM Blab WHERE id = :id');
-
+			$query = DB::connection()->prepare('DELETE FROM Favourite WHERE Favourite.blab_id = :id');
 			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
 			$query->execute();
 		}

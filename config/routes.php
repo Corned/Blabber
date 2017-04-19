@@ -1,5 +1,4 @@
 <?php
-
     $routes->get('/hiekkalaatikko', function() {
         HelloWorldController::sandbox();
     });
@@ -41,6 +40,12 @@
         BlabController::update();
     });
 
+    $routes->post("/blab/favourite", function() {
+            //$message = "wrong naswer";
+        //echo "<script type='text/javascript'>alert('$message');</script>";
+        BlabController::favourite();
+    });
+
     $routes->post('/blab/delete', function() {
         BlabController::destroy();
     });
@@ -63,7 +68,15 @@
         UserController::profile(null);
     });
 
+    $routes->get('/profile/:username/favourites', function($username) {
+        UserController::favourites($username);
+    });
 
+
+
+    $routes->get('/(:any)', function() {
+        Redirect::to("/feed");
+    });
 
     $routes->get('/(:any)', function() {
         Redirect::to("/feed");

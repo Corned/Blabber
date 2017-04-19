@@ -14,7 +14,7 @@
 
 
 	<form method="post" action="{{base_path}}/blab/new">
-        <input type="hidden" value={{user_logged_in.name}} name="username"/>
+    <input type="hidden" value={{user_logged_in.name}} name="username"/>
 		<div class="form-group">
 			<label>Write a new Blab!</label>
 			<input type="text" name="body" class="form-control">
@@ -22,5 +22,6 @@
 
 		<div class="form-group">
 			<button type="submit" class="btm btm-success">Send!</button>
+		</div>
 	</form>
 {% endblock %}
