@@ -31,8 +31,8 @@
 			<td>{{blab.body}}</td>
 
             {% if isOwner %}
-    			<td width="6%"><a href="{{base_path}}/blab/edit/{{blab.id}}" class="btn btn-warning">EDIT</a></td>
-    			<td width="8%"><a href="{{base_path}}/blab/delete/{{blab.id}}" class="btn btn-danger">DELETE</a></td>
+    			<td width="6%"><a href="{{base_path}}/blab/{{blab.id}}/edit" class="btn btn-warning">EDIT</a></td>
+    			<td width="8%"><a href="{{base_path}}/blab/{{blab.id}}/delete/" class="btn btn-danger">DELETE</a></td>
             {% endif %}
 
             <td width="4%">

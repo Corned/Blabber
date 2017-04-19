@@ -5,7 +5,6 @@
 
     $routes->get('/feed', function() {
         BlabController::globalFeed();
-        //BlabController::userFeed();
     });
 
 
@@ -15,52 +14,52 @@
         Redirect::to('');
     });
 
-    $routes->get('/blab/new', function() {
+    $routes->get('/blab/new/', function() {
         BlabController::create();
     });
 
-    $routes->get('/blab/edit/:id', function($id) {
-        BlabController::edit($id);
-    });
-
-    $routes->get('/blab/show/:id', function($id) {
+    $routes->get('/blab/:id/', function($id) {
         BlabController::show($id);
     });
 
-    $routes->get("/blab/delete/:id", function($id) {
+    $routes->get('/blab/:id/edit/', function($id) {
+        BlabController::edit($id);
+    });
+
+    $routes->get("/blab/:id/delete/", function($id) {
         BlabController::delete($id);
     });
 
     // Blab Posts
-    $routes->post('/blab/new', function() {
+    $routes->post('/blab/new/', function() {
         BlabController::store();
     });
 
-    $routes->post('/blab/edit', function() {
+    $routes->post('/blab/edit/', function() {
         BlabController::update();
     });
 
-    $routes->post("/blab/favourite", function() {
+    $routes->post("/blab/favourite/", function() {
             //$message = "wrong naswer";
         //echo "<script type='text/javascript'>alert('$message');</script>";
         BlabController::favourite();
     });
 
-    $routes->post('/blab/delete', function() {
+    $routes->post('/blab/delete/', function() {
         BlabController::destroy();
     });
 
 
     // ...
-    $routes->get('/login', function() {
+    $routes->get('/login/', function() {
         UserController::login();
     });
 
-    $routes->post("/login", function() {
+    $routes->post("/login/", function() {
         UserController::handle_login();
     });
 
-    $routes->get('/profile/:username', function($username) {
+    $routes->get('/profile/:username/', function($username) {
         UserController::profile($username);
     });
 
@@ -68,15 +67,11 @@
         UserController::profile(null);
     });
 
-    $routes->get('/profile/:username/favourites', function($username) {
+    $routes->get('/profile/:username/favourites/', function($username) {
         UserController::favourites($username);
     });
 
 
-
-    $routes->get('/(:any)', function() {
-        Redirect::to("/feed");
-    });
 
     $routes->get('/(:any)', function() {
         Redirect::to("/feed");

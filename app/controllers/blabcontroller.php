@@ -1,9 +1,7 @@
 <?php
 	class BlabController extends BaseController {
 		// Lomakkeen esittely
-		public static function globalFeed() {
-			self::check_logged_in();
-			
+		public static function globalFeed() {			
 			$blabs = Blab::all();
 			View::make('user/feed.html', array('blabs' => $blabs));	
 		}
@@ -22,9 +20,9 @@
 			
 			$blab = Blab::find($id);
 			if ($blab == null) {
-				Redirect::to("/", array("error" => "Something went wrong."));
+				Redirect::to("/", array("error" => "Blab not found."));
 			}
-			
+
 			$isFavourite = Blab::is_favourite($blab->id, $user->id);
 			View::make('blab/show.html', array('blab' => $blab, "liked" => $isFavourite, "isOwner" => ($user->id == $blab->account_id)));
 		}
@@ -36,7 +34,7 @@
 			if ($blab != null && self::authorize_access($blab->account_id)) {
 				View::make('blab/edit.html', array('blab' => $blab));
 			}
-			Redirect::to("/", array("error" => "Something went wrong."));
+			Redirect::to("/", array("error" => "Unauthorized access."));
 		}
 
 		// Lomakkeen esittely
@@ -47,7 +45,7 @@
 			if ($blab != null && self::authorize_access($blab->account_id)) {
 				View::make('blab/delete.html', array('blab' => $blab));
 			}
-			Redirect::to("/", array("error" => "Something went wrong."));
+			Redirect::to("/", array("error" => "Unauthorized access."));
 		}
 
 
@@ -89,7 +87,7 @@
 				$message = "You no longer like this blab.. :(";
 			}
 
-			Redirect::to("/blab/show/" . $params["blab_id"], array("message" => $message, "liked" => $isFavourite));
+			Redirect::to("/blab/" . $params["blab_id"], array("message" => $message, "liked" => $isFavourite));
 		}
 
 		public static function update() {
@@ -107,7 +105,7 @@
 
 			if (count($errs) == 0) {
 				$blab->update($blab->id, $blab->body);
-				Redirect::to('/blab/show/' . $blab->id, array('message' => 'You edited your blab successfully!'));
+				Redirect::to('/blab/' . $blab->id, array('message' => 'You edited your blab successfully!'));
 			} else {
 				View::make("blab/edit.html", array("errors" => $errors, "attributes" => $attributes));
 			}
@@ -119,6 +117,6 @@
 			$params = $_POST;
 			$blab = new Blab(array("id" => $params["id"]));
 			$blab->destroy();
-			Redirect::to("/feed", array("message" => "Blab was deleted successfully!"));
+			Redirect::to("/feed", array("message" => "Your blab was deleted successfully!"));
 		}
 	}

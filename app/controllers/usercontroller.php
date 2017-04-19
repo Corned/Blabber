@@ -10,7 +10,7 @@
 	    	$user = User::authenticate($params["username"], $params["password"]);
 
 	    	if (!$user) {
-	    		View::make("user/login.html", array("error" => "Invalid username or password"));
+	    		View::make("user/login.html", array("error" => "Invalid username or password."));
 	    	} else {
 	    		$_SESSION["user"] = $user->id;
 
@@ -18,16 +18,14 @@
 	    	}
 	    }
 
-	    public static function profile($username) {
-			self::check_logged_in();
-			
+	    public static function profile($username) {			
 			if ($username == null) {
 				// to own profile if logged in
 				if (parent::get_user_logged_in()) {
 					$username = parent::get_user_logged_in()->username;
 					Redirect::to("/profile/" . $username);
 				} else {
-					Redirect::to("/login");
+					Redirect::to("/login", array("error" => "Please log in to view your profile."));
 				}
 			}
 
@@ -37,12 +35,10 @@
 			View::make("user/profile.html", array("user" => $user, "blabs" => $blabs));
 	    }
 
-	    public static function favourites($username) {
-			self::check_logged_in();
-			
+	    public static function favourites($username) {			
 	    	$user = User::find_by_username($username);
 	    	if ($user == null) {
-	    		Redirect::to("/", array("error" => "User not found..?"));
+	    		Redirect::to("/", array("error" => "User not found."));
 	    	}
 
 	    	$blabs = Blab::find_favourites_by_accountid($user->id);
