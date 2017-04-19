@@ -16,8 +16,10 @@
         <th>Username</th>
         <th>Blab ID</th>
         <th>Message</th>
-        <th></th>
-        <th></th>
+        {% if isOwner %}
+            <th></th>
+            <th></th>
+        {% endif %}
         <th></th>
       </tr>
     </thead>
@@ -28,21 +30,23 @@
 			<td width="6%">{{blab.id}}</td>
 			<td>{{blab.body}}</td>
 
-			<td width="4%">
-				<form method="post" action="{{base_path}}/blab/favourite">
-					<input type="hidden" value={{blab.id}} name="blab_id"/>
-					<div class="form-group">
+            {% if isOwner %}
+    			<td width="6%"><a href="{{base_path}}/blab/edit/{{blab.id}}" class="btn btn-warning">EDIT</a></td>
+    			<td width="8%"><a href="{{base_path}}/blab/delete/{{blab.id}}" class="btn btn-danger">DELETE</a></td>
+            {% endif %}
+
+            <td width="4%">
+                <form method="post" action="{{base_path}}/blab/favourite">
+                    <input type="hidden" value={{blab.id}} name="blab_id"/>
+                    <div class="form-group">
                         {% if liked %}
                             <button type="submit" class="btn btn-success"><3</button>
                         {% else %}
                             <button type="submit" class="btn btn-danger"><\3</button>
                         {% endif %}
                     </div>
-				</form>
-			</td>
-
-			<td width="6%"><a href="{{base_path}}/blab/edit/{{blab.id}}" class="btn btn-warning">EDIT</a></td>
-			<td width="8%"><a href="{{base_path}}/blab/delete/{{blab.id}}" class="btn btn-danger">DELETE</a></td>
+                </form>
+            </td>
         </tr>
     </tbody>
   </table>

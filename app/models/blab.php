@@ -26,6 +26,10 @@
 		}
 
 		public static function find($id) {
+			if ($id > 2147483647) {
+				return null;
+			}
+
 			$query = DB::connection()->prepare('SELECT * FROM Blab WHERE id = :id LIMIT 1');
 			$query->execute(array('id' => $id));
 			$row = $query->fetch();
@@ -84,6 +88,10 @@
 		}
 
 		public static function is_favourite($blab_id, $account_id) {
+			if ($blab_id > 2147483647) {
+				return null;
+			}
+
 			$query = DB::connection()->prepare('SELECT Favourite.account_id, Favourite.blab_id FROM Favourite WHERE Favourite.blab_id = :blab_id AND Favourite.account_id = :account_id LIMIT 1');
 
 			$query->bindValue(":account_id", $account_id, PDO::PARAM_INT);
@@ -95,6 +103,10 @@
 		}
 
 		public static function toggle_favourite($blab_id, $account_id) {
+			if ($blab_id > 2147483647) {
+				return null;
+			}
+
 			$query = DB::connection()->prepare('SELECT Favourite.account_id, Favourite.blab_id FROM Favourite WHERE Favourite.account_id = :account_id AND Favourite.blab_id = :blab_id LIMIT 1');
 
 			$query->bindValue(":account_id", $account_id, PDO::PARAM_INT);
@@ -120,6 +132,10 @@
 		}
 
 		public static function update($id, $body) {
+			if ($id > 2147483647) {
+				return null;
+			}
+			
 			$query = DB::connection()->prepare('UPDATE Blab SET body = :body WHERE id = :id');
 
 			$query->bindValue(':id', $id, PDO::PARAM_INT);

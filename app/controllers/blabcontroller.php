@@ -18,17 +18,25 @@
 		// Lomakkeen esittely
 		public static function show($id) {
 			self::check_logged_in();
+			$user = self::get_user_logged_in();
 			
 			$blab = Blab::find($id);
-			$isFavourite = Blab::is_favourite($blab->id, $_SESSION["user"]);
-			View::make('blab/show.html', array('blab' => $blab, "liked" => $isFavourite));
+			if ($blab == null) {
+				Redirect::to("/", array("error" => "Something went wrong."));
+			}
+			
+			$isFavourite = Blab::is_favourite($blab->id, $user->id);
+			View::make('blab/show.html', array('blab' => $blab, "liked" => $isFavourite, "isOwner" => ($user->id == $blab->account_id)));
 		}
 		// Lomakkeen esittely
 		public static function edit($id) {
 			self::check_logged_in();
-			
+
 			$blab = Blab::find($id);
-			View::make('blab/edit.html', array('blab' => $blab));
+			if ($blab != null && self::authorize_access($blab->account_id)) {
+				View::make('blab/edit.html', array('blab' => $blab));
+			}
+			Redirect::to("/", array("error" => "Something went wrong."));
 		}
 
 		// Lomakkeen esittely
@@ -36,7 +44,10 @@
 			self::check_logged_in();
 			
 			$blab = Blab::find($id);
-			View::make('blab/delete.html', array('blab' => $blab));
+			if ($blab != null && self::authorize_access($blab->account_id)) {
+				View::make('blab/delete.html', array('blab' => $blab));
+			}
+			Redirect::to("/", array("error" => "Something went wrong."));
 		}
 
 
@@ -66,6 +77,20 @@
 			}
 		}
 
+		public static function favourite() {
+			self::check_logged_in();
+
+			$params = $_POST;
+			$isFavourite = Blab::toggle_favourite($params["blab_id"], $_SESSION["user"]);
+			$message = "";
+			if ($isFavourite == true) {
+				$message = "You liked this blab!";
+			} else {
+				$message = "You no longer like this blab.. :(";
+			}
+
+			Redirect::to("/blab/show/" . $params["blab_id"], array("message" => $message, "liked" => $isFavourite));
+		}
 
 		public static function update() {
 			self::check_logged_in();
@@ -86,21 +111,6 @@
 			} else {
 				View::make("blab/edit.html", array("errors" => $errors, "attributes" => $attributes));
 			}
-		}
-
-		public static function favourite() {
-			self::check_logged_in();
-
-			$params = $_POST;
-			$isFavourite = Blab::toggle_favourite($params["blab_id"], $_SESSION["user"]);
-			$message = "";
-			if ($isFavourite == true) {
-				$message = "You liked this blab!";
-			} else {
-				$message = "You no longer like this blab.. :(";
-			}
-
-			Redirect::to("/blab/show/" . $params["blab_id"], array("message" => $message, "liked" => $isFavourite));
 		}
 
 		public static function destroy() {

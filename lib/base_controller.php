@@ -19,4 +19,8 @@
             }
         }
 
+        public static function authorize_access($account_id) {
+            return $account_id == self::get_user_logged_in()->id;
+        }
+
     }

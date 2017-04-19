@@ -10,6 +10,14 @@
       </div>
   {% endif %}
 
+  {% if error %}
+      <div class="alert alert-danger">
+          <ul>
+              <li>{{error}}</li>
+          </ul>
+      </div>
+  {% endif %}
+
   <p>
     <a href="{{base_path}}/blab/new" class="btn btn-success">New Blab</a>
   </p>
