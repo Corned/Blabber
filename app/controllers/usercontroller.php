@@ -18,6 +18,11 @@
 	    	}
 	    }
 
+	    public static function logout() {
+	    	$_SESSION["user"] = null;
+	    	Redirect::to("/login", array("message" => "You've logged out!"));
+	    }
+
 	    public static function profile($username) {			
 			if ($username == null) {
 				// to own profile if logged in

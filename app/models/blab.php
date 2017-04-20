@@ -6,9 +6,26 @@
 			$this->validators = array("validate_body");
 		}
 
-		public static function all() {
-			$query = DB::connection()->prepare('SELECT * FROM Blab ORDER BY Blab.id DESC');
+		public static function count() {
+			$query = DB::connection()->prepare('SELECT COUNT(*) FROM Blab');
 			$query->execute();
+			$rows = $query->fetchAll();
+
+
+			return count($rows);
+		}
+
+		public static function all($options) {
+			if (isset($options) && isset($options["page"]) && isset($options["page_size"])) {
+				$page = $options["page"];
+				$page_size = $options["page_size"];
+			} else {
+				$page = 1;
+				$page_size = 1000;
+			}
+
+			$query = DB::connection()->prepare('SELECT * FROM Blab ORDER BY Blab.id DESC LIMIT :lim OFFSET :offs');
+			$query->execute(array("lim" => $page_size, "offs" => $page_size * ($page - 1)));
 
 			$rows = $query->fetchAll();
 			$blabs = array();
@@ -27,6 +44,12 @@
 
 		public static function find($id) {
 			if ($id > 2147483647) {
+				// overflow
+				return null;
+			}
+
+			if ($id < 0) {
+				// invalid id
 				return null;
 			}
 

@@ -59,6 +59,10 @@
         UserController::handle_login();
     });
 
+    $routes->post("/logout/", function() {
+        UserController::logout();
+    });
+
     $routes->get('/profile/:username/', function($username) {
         UserController::profile($username);
     });

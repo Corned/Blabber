@@ -2,8 +2,16 @@
 	class BlabController extends BaseController {
 		// Lomakkeen esittely
 		public static function globalFeed() {			
-			$blabs = Blab::all();
-			View::make('user/feed.html', array('blabs' => $blabs));	
+			$blabs = Blab::all(array());
+
+			//$blab_count = Blab::count();
+			//$page_size = 2;
+			//$pages = ceil($blab_count/$page_size);
+
+
+			View::make('user/feed.html', array(
+				'blabs' => $blabs
+			));	
 		}
 
 		// Lomakkeen esittely
@@ -69,7 +77,7 @@
 
 			if (count($errs) == 0) {
 				$blab->save(parent::get_user_logged_in()->id);
-				Redirect::to("/blab/show/" . $blab->id, array("message" => "Your blab was published successfully!"));
+				Redirect::to("/blab/" . $blab->id, array("message" => "Your blab was published successfully!"));
 			} else {
 				View::make('/blab/new.html', array("errors" => $errs, "attributes" => $attributes));
 			}
