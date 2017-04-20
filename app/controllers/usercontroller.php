@@ -4,6 +4,7 @@
 	    	View::make("user/login.html");
 	    }
 
+		// Post - kirjaudu
 	    public static function handle_login() {
 	    	$params = $_POST;
 
@@ -18,12 +19,14 @@
 	    	}
 	    }
 
+		// Post - kirjaudu ulos
 	    public static function logout() {
 	    	$_SESSION["user"] = null;
 	    	Redirect::to("/login", array("message" => "You've logged out!"));
 	    }
 
-	    public static function profile($username) {			
+		// Näytä profiili
+	    public static function profile($username) {
 			if ($username == null) {
 				// to own profile if logged in
 				if (parent::get_user_logged_in()) {
@@ -40,7 +43,8 @@
 			View::make("user/profile.html", array("user" => $user, "blabs" => $blabs));
 	    }
 
-	    public static function favourites($username) {			
+		// Näytä suosikit
+	    public static function favourites($username) {
 	    	$user = User::find_by_username($username);
 	    	if ($user == null) {
 	    		Redirect::to("/", array("error" => "User not found."));

@@ -6,15 +6,16 @@
 			$this->validators = array("validate_body");
 		}
 
+		// Hae blabien määrä
 		public static function count() {
 			$query = DB::connection()->prepare('SELECT COUNT(*) FROM Blab');
 			$query->execute();
 			$rows = $query->fetchAll();
 
-
 			return count($rows);
 		}
 
+		// Hae kaikki blabit
 		public static function all($options) {
 			if (isset($options) && isset($options["page"]) && isset($options["page_size"])) {
 				$page = $options["page"];
@@ -42,6 +43,7 @@
 			return $blabs;
 		}
 
+		// Hae yksi blab id:n perusteella
 		public static function find($id) {
 			if ($id > 2147483647) {
 				// overflow
@@ -70,6 +72,7 @@
 			return null;
 		}
 
+		// Hae käyttäjän kaikki blabit käyttäjän id:n perusteella.
 		public static function find_by_accountid($account_id) {
 			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Account WHERE Blab.account_id =:account_id ORDER BY Blab.id DESC');
 			$query->bindValue(':account_id', $account_id, PDO::PARAM_STR);
@@ -90,6 +93,7 @@
 			return $blabs;
 		}
 
+		// Hae käyttäjän tykkäykset käyttäjän id:n perusteella.
 		public static function find_favourites_by_accountid($account_id) {
 			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Account, Favourite WHERE Blab.id = Favourite.blab_id AND Favourite.account_id = :account_id ORDER BY Blab.id DESC');
 			$query->bindValue(':account_id', $account_id, PDO::PARAM_STR);
@@ -110,6 +114,7 @@
 			return $blabs;
 		}
 
+		// Tarkistaa onko tietty blab tietyn käyttäjän suosikki
 		public static function is_favourite($blab_id, $account_id) {
 			if ($blab_id > 2147483647) {
 				return null;
@@ -125,6 +130,7 @@
 			return !($row == null);
 		}
 
+		// Asettaa blabin käyttäjän suosikiksi tai poistaa suosikki "statuksen"
 		public static function toggle_favourite($blab_id, $account_id) {
 			if ($blab_id > 2147483647) {
 				return null;
@@ -154,11 +160,12 @@
 			}
 		}
 
+		// Päivittää blabin sisältöä
 		public static function update($id, $body) {
 			if ($id > 2147483647) {
 				return null;
 			}
-			
+
 			$query = DB::connection()->prepare('UPDATE Blab SET body = :body WHERE id = :id');
 
 			$query->bindValue(':id', $id, PDO::PARAM_INT);
@@ -166,6 +173,7 @@
 			$query->execute();
 		}
 
+		// Tallentaa blabin tietokantaan
 		public function save($account_id) {
 			$query = DB::connection()->prepare('INSERT INTO Blab (account_id, username, body) VALUES (:account_id, :username, :body) RETURNING id');
 
@@ -178,6 +186,7 @@
 			$this->id = $row['id'];
 		}
 
+		// Poistaa blabin tietokannasta
 		public function destroy() {
 			$query = DB::connection()->prepare('DELETE FROM Blab WHERE id = :id');
 			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
@@ -188,10 +197,10 @@
 			$query->execute();
 		}
 
-		// Validate
+		// Validoi blabin sisällön
 		public function validate_body() {
 			$errs = array();
-			if ($this->is_not_null($this->body) == false && $this->validate_string_length_shorter_than($this->body, 1)) { 
+			if ($this->is_not_null($this->body) == false && $this->validate_string_length_shorter_than($this->body, 1)) {
 				// I cannot compare $this->body to null.
 				// unexpected T_VARIABLE
 				$errs[] = 'Your message must not be empty!';
@@ -204,4 +213,3 @@
 			return $errs;
 		}
 	}
-

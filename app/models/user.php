@@ -6,8 +6,9 @@
 			$this->validators = array("validate_username");
 		}
 
+		// Autentikoi käyttäjän
 		public static function authenticate($username, $password) {
-			$query = DB::connection()->prepare('SELECT * FROM Account WHERE username = :username AND password = :password LIMIT 1');	
+			$query = DB::connection()->prepare('SELECT * FROM Account WHERE username = :username AND password = :password LIMIT 1');
 
 			$query->bindValue(':username', $username, PDO::PARAM_STR);
 			$query->bindValue(':password', $password, PDO::PARAM_STR);
@@ -26,8 +27,9 @@
 			return null;
 		}
 
+		// Hakee käyttäjän tietokannasta id:n avulla
 		public static function find($id) {
-			$query = DB::connection()->prepare('SELECT * FROM Account WHERE id = :id LIMIT 1');	
+			$query = DB::connection()->prepare('SELECT * FROM Account WHERE id = :id LIMIT 1');
 
 			$query->bindValue(':id', $id, PDO::PARAM_INT);
 			$query->execute();
@@ -45,8 +47,9 @@
 			return null;
 		}
 
+		// Hakee käyttäjän tietokannasta käyttäjänimen avulla
 		public static function find_by_username($username) {
-			$query = DB::connection()->prepare('SELECT * FROM Account WHERE username = :username LIMIT 1');	
+			$query = DB::connection()->prepare('SELECT * FROM Account WHERE username = :username LIMIT 1');
 
 			$query->bindValue(':username', $username, PDO::PARAM_STR);
 			$query->execute();
@@ -64,10 +67,10 @@
 			return null;
 		}
 
-		// Validate
+		// Validoi käyttäjänimen
 		public function validate_username() {
 			$errs = array();
-			if ($this->is_not_null($this->username) == false && $this->validate_string_length_shorter_than($this->username, 3)) { 
+			if ($this->is_not_null($this->username) == false && $this->validate_string_length_shorter_than($this->username, 3)) {
 				// I cannot compare $this->body to null.
 				// unexpected T_VARIABLE
 				$errs[] = 'Your username must be at least three characters long!';
@@ -80,10 +83,10 @@
 			return $errs;
 		}
 
-		// Validate
+		// Validoi salasanan.
 		public function validate_password() {
 			$errs = array();
-			if ($this->is_not_null($this->password) == false && $this->validate_string_length_shorter_than($this->password, 6)) { 
+			if ($this->is_not_null($this->password) == false && $this->validate_string_length_shorter_than($this->password, 6)) {
 				// I cannot compare $this->body to null.
 				// unexpected T_VARIABLE
 				$errs[] = 'Your password must be at least six characters long!';
@@ -96,4 +99,3 @@
 			return $errs;
 		}
 	}
-
