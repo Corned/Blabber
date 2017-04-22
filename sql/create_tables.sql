@@ -17,3 +17,9 @@ CREATE TABLE Favourite(
     account_id INTEGER REFERENCES Account(id),
     blab_id INTEGER REFERENCES Blab(id)
 );
+
+CREATE TABLE Follow(
+    account_id INTEGER,
+    follower_id INTEGER REFERENCES Account(id),
+    PRIMARY KEY(account_id)
+)
