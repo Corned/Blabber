@@ -3,54 +3,66 @@
         HelloWorldController::sandbox();
     });
 
-    $routes->get('/feed', function() {
-        BlabController::globalFeed();
-    });
-
-
-
-    // Blab Gets
     $routes->get('/blab/', function() {
         Redirect::to('');
     });
 
+    // Feed
+    $routes->get('/globalfeed', function() {
+        BlabController::globalFeed();
+    });
+
+    $routes->get('/feed', function() {
+        BlabController::globalFeed();
+    });
+
+    // New Blab
     $routes->get('/blab/new/', function() {
         BlabController::create();
     });
 
+    $routes->post('/blab/new/', function() {
+        BlabController::store();
+    });
+
+    // Show Blab
     $routes->get('/blab/:id/', function($id) {
         BlabController::show($id);
     });
 
+    // Edit Blab
     $routes->get('/blab/:id/edit/', function($id) {
         BlabController::edit($id);
-    });
-
-    $routes->get("/blab/:id/delete/", function($id) {
-        BlabController::delete($id);
-    });
-
-    // Blab Posts
-    $routes->post('/blab/new/', function() {
-        BlabController::store();
     });
 
     $routes->post('/blab/edit/', function() {
         BlabController::update();
     });
 
-    $routes->post("/blab/favourite/", function() {
-            //$message = "wrong naswer";
-        //echo "<script type='text/javascript'>alert('$message');</script>";
-        BlabController::favourite();
+    // Delete Blab
+    $routes->get("/blab/:id/delete/", function($id) {
+        BlabController::delete($id);
     });
 
     $routes->post('/blab/delete/', function() {
         BlabController::destroy();
     });
 
+    // Favourite Blab
+    $routes->post("/blab/favourite/", function() {
+        BlabController::favourite();
+    });
 
-    // ...
+    // Profile
+    $routes->get('/profile/:username/', function($username) {
+        UserController::profile($username);
+    });
+
+    $routes->get('/profile/', function() {
+        UserController::profile(null);
+    });
+
+    // Login
     $routes->get('/login/', function() {
         UserController::login();
     });
@@ -59,16 +71,9 @@
         UserController::handle_login();
     });
 
+    // Logout
     $routes->post("/logout/", function() {
         UserController::logout();
-    });
-
-    $routes->get('/profile/:username/', function($username) {
-        UserController::profile($username);
-    });
-
-    $routes->get('/profile/', function() {
-        UserController::profile(null);
     });
 
     $routes->get('/profile/:username/favourites/', function($username) {
