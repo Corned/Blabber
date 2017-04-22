@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1>Profile of {{user.username}}</br>&emsp;<small>Funny subtitle.</small></h1>
+	<h1>Profile of {{user.username}}</h1>
 
 	{% if message %}
 		<div class="alert alert-success">
@@ -12,9 +12,30 @@
 
 	<table>
 		<tr>
-			<td><a href="#" class="btn btn-default">Follow</a>&emsp;</td>
-			<td><a href="#" class="btn btn-primary">Following</a>&emsp;</td>
-			<td><a href="{{base_path}}/profile/{{user.username}}/favourites" class="btn btn-success">View Favourite Blabs</a>&emsp;</td>
+			{% if follows == "true" %}
+				<td>
+					<form class="navbar-form navbar-right" method="post" action="{{base_path}}/profile/{{user.username}}/follow">
+    					<input type="hidden" value="follow" name="action"/>
+						<button id="unfollow_button" onmouseover="following_onMouseEnter()" onmouseout="following_onMouseLeave()" type="submit" class="btn btn-primary">Following</button>
+					</form>
+				</td>
+			{% elseif follows == "false" %}
+				<td>
+					<form class="navbar-form navbar-right" method="post" action="{{base_path}}/profile/{{user.username}}/follow">
+    					<input type="hidden" value="unfollow" name="action"/>
+						<button type="submit" class="btn btn-default">Follow</button>
+					</form>
+				</td>
+			{% else %}
+				<td>
+					{% if follows == "self" %}
+						<p> You can't follow yourself </p>
+					{% else %}
+						<p> Log in to follow {{user.username}}. </p>
+					{% endif %}
+				</td>
+			{% endif %}
+			<td>&emsp;<a href="{{base_path}}/profile/{{user.username}}/favourites" class="btn btn-success">View Favourite Blabs</a>&emsp;</td>
 			<td><a href="{{base_path}}/profile/{{user.username}}/followers" class="btn btn-success">View Followers</a></td>
 		</tr>
 	</table>
@@ -40,4 +61,19 @@
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<script type="text/javascript">
+		function following_onMouseEnter(button) {
+			var button = document.getElementById("unfollow_button");
+			button.textContent = "Unfollow!";
+			button.className = "btn btn-danger";
+		}
+		function following_onMouseLeave(button) {
+			var button = document.getElementById("unfollow_button");
+			button.textContent = "Following";
+			button.className = "btn btn-primary";
+		}
+	</script>
+
+
 {% endblock %}

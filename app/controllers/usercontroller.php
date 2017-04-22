@@ -39,8 +39,15 @@
 
 			$user = User::find_by_username($username);
 			$blabs = Blab::find_by_accountid($user->id);
+			$followStatus;
+			if (parent::get_user_logged_in() == null) {
+				$followStatus = "log in";
+			} else {
+				$followStatus = User::is_following(parent::get_user_logged_in()->id, $user->id);
+			}
 
-			View::make("user/profile.html", array("user" => $user, "blabs" => $blabs));
+
+			View::make("user/profile.html", array("user" => $user, "blabs" => $blabs, "follows" => $followStatus));
 	    }
 
 		// Näytä suosikit
@@ -52,5 +59,33 @@
 
 	    	$blabs = Blab::find_favourites_by_accountid($user->id);
 	    	View::make("user/favourites.html", array("user" => $user, "blabs" => $blabs));
+	    }
+
+	    // Follow
+	    public static function follow($username) {
+			self::check_logged_in();
+
+	    	$userToFollow = User::find_by_username($username);
+	    	if ($userToFollow == null) {
+	    		Redirect::to("/", array("error" => "User not found."));
+	    	}
+
+			$user = self::get_user_logged_in();
+	    	$isFollowing = User::toggle_follow($user->id, $userToFollow->id);
+	    	$message = "";
+	    	if ($isFollowing == true) {
+	    		$message = "You are now following " . $username . "!";
+	    	} else {
+	    		$message = "You are no longer following " . $username . ".";
+	    	}
+
+			$followStatus;
+			if (parent::get_user_logged_in() == null) {
+				$followStatus = "log in";
+			} else {
+				$followStatus = User::is_following(parent::get_user_logged_in()->id, $userToFollow->id);
+			}
+
+	    	Redirect::to("/profile/" . $username, array("message" => $message, "follows" => $followStatus));
 	    }
 	}

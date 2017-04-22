@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 	{% block content %}
-	<h1>Global Feed</br>&emsp;<small>What are people blabbing about?</small></h1>
+
+	{% if feedType == "global" %}
+		<h1>Global Feed</br>&emsp;<small>What are people blabbing about?</small></h1>
+	{% else %}
+		<h1>Personalized Feed</br>&emsp;<small>people you follow idk.</small></h1>
+	{% endif %}
+
 
 	{% if message %}
 		<div class="alert alert-success">

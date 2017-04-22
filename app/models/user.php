@@ -67,6 +67,42 @@
 			return null;
 		}
 
+		// Tarkistaa seuraatko tiettyä käyttäjää
+		public static function is_following($account_id, $follower_id) {
+			if ($account_id == $follower_id) {
+				return "self";
+			}
+
+			$query = DB::connection()->prepare("SELECT Follow.account_id, Follow.follower_id FROM Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = :follower_id LIMIT 1");
+			$query->execute(array("account_id" => $account_id, "follower_id" => $follower_id));
+			$row = $query->fetch();
+
+			if ($row == null) {
+				return "false";
+			} else {
+				return "true";
+			}
+		}
+
+		// Seuraa tai poistaa seurauksen
+		public static function toggle_follow($account_id, $follower_id) {
+			$query = DB::connection()->prepare("SELECT Follow.account_id, Follow.follower_id FROM Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = :follower_id LIMIT 1");
+			$query->execute(array("account_id" => $account_id, "follower_id" => $follower_id));
+			$row = $query->fetch();
+
+			if ($row == null) {
+				// Start follow
+				$query = DB::connection()->prepare("INSERT INTO Follow(account_id, follower_id) VALUES (:account_id, :follower_id)");
+				$query->execute(array("account_id" => $account_id, "follower_id" => $follower_id));
+				return true;
+			} else {
+				// stop follow
+				$query = DB::connection()->prepare("DELETE FROM Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = :follower_id");
+				$query->execute(array("account_id" => $account_id, "follower_id" => $follower_id));
+				return false;
+			}
+		}
+
 		// Validoi käyttäjänimen
 		public function validate_username() {
 			$errs = array();
@@ -78,6 +114,14 @@
 
 			if ($this->validate_string_length_longer_than($this->username, 20)) {
 				$errs[] = "Your username must be shorter than 20 characters.";
+			}
+
+			/*if (strpos($this->username, ' ') !== false) {
+				$errs[] = "Your username must not contain any spaces.";
+			}*/
+
+			if (preg_match("/[\'^£$%&*()}{@#~?><>,|?_+-]/", $this->username) == true) {
+				$errs[] = "Your username must not contain any special characters.";
 			}
 
 			return $errs;

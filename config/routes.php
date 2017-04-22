@@ -62,6 +62,11 @@
         UserController::profile(null);
     });
 
+    // Follow
+    $routes->post("/profile/:username/follow", function($username) {
+        UserController::follow($username);
+    });
+
     // Login
     $routes->get('/login/', function() {
         UserController::login();

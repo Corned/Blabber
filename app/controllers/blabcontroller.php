@@ -5,6 +5,17 @@
 			$blabs = Blab::all(array());
 
 			View::make('user/feed.html', array(
+				"feedType" => "global",
+				"blabs" => $blabs
+			));
+		}
+
+
+		public static function personalizedFeed() {
+			$blabs = Blab::all(array());
+
+			View::make('user/feed.html', array(
+				"feedType" => "personalized",
 				"blabs" => $blabs
 			));
 		}
