@@ -45,6 +45,10 @@
 
 		// Hae yksi blab id:n perusteella
 		public static function find($id) {
+			if (!is_numeric($id)) {
+				return null;
+			}
+
 			if ($id > 2147483647) {
 				// overflow
 				return null;
