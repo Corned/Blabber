@@ -4,13 +4,8 @@
 		public static function globalFeed() {
 			$blabs = Blab::all(array());
 
-			//$blab_count = Blab::count();
-			//$page_size = 2;
-			//$pages = ceil($blab_count/$page_size);
-
-
 			View::make('user/feed.html', array(
-				'blabs' => $blabs
+				"blabs" => $blabs
 			));
 		}
 
