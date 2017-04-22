@@ -48,10 +48,10 @@
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
-						<li >
-							<form method="post" action="#">
-								<div id="searchbar" class="form-group"  hidden>
-									<input placeholder="Search for users and blabs" type="text" name="body" class="form-control" maxlength="60">
+						<li>
+							<form method="get" action="{{base_path}}/search">
+								<div id="searchbar" class="form-group">
+									<input placeholder="Search for users and blabs" type="text" name="criteria" class="form-control" maxlength="60">
 								</div>						
 							</form>
 						</li>

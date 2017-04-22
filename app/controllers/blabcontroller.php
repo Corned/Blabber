@@ -10,7 +10,6 @@
 			));
 		}
 
-
 		public static function personalizedFeed() {
 			self::check_logged_in();
 			$user = self::get_user_logged_in();
@@ -22,6 +21,16 @@
 				"blabs" => $blabs
 			));
 		}
+
+		public static function search() {
+			$params = $_GET;
+			$blabs = Blab::search($params["criteria"]);
+
+
+			View::make('blab/search.html', array(
+				"blabs" => $blabs
+			));
+		} 
 
 		// Luomislomakkeen esittely
 		public static function create() {

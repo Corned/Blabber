@@ -6,15 +6,6 @@
 			$this->validators = array("validate_body");
 		}
 
-		// Hae blabien määrä
-		public static function count() {
-			$query = DB::connection()->prepare('SELECT COUNT(*) FROM Blab');
-			$query->execute();
-			$rows = $query->fetchAll();
-
-			return count($rows);
-		}
-
 		// Hae kaikki blabit
 		public static function all() {
 			$query = DB::connection()->prepare('SELECT * FROM Blab ORDER BY Blab.id DESC');
@@ -40,6 +31,26 @@
 		public static function get_personalized_blabs($account_id) {
 			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = Blab.account_id ORDER BY Blab.id DESC');
 			$query->execute(array("account_id" => $account_id));
+
+			$rows = $query->fetchAll();
+			$blabs = array();
+
+			foreach($rows as $row) {
+				$blabs[] = new Blab(array(
+					'id' => $row['id'],
+					"account_id" => $row["account_id"],
+					"username" => $row["username"],
+					'body' => $row['body']
+				));
+			}
+
+			return $blabs;
+		}
+
+		// Hae kaikki blabit
+		public static function search($criteria) {
+			$query = DB::connection()->prepare('SELECT DISTINCT * FROM Blab WHERE Blab.body LIKE :criteria OR Blab.username LIKE :criteria ORDER BY Blab.id DESC');
+			$query->execute(array("criteria" => "%".$criteria."%"));
 
 			$rows = $query->fetchAll();
 			$blabs = array();

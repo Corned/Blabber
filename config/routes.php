@@ -12,6 +12,10 @@
         BlabController::personalizedFeed();
     });
 
+    $routes->get("/search", function() {
+        BlabController::search();
+    });
+
     // New Blab
     $routes->get('/blab/new/', function() {
         BlabController::create();
