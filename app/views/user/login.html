@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-
     <div id="subnavigation" align="center">
     	<table style="width:1000px;">
     		<tr>
     			<td align="left" style="width:50%">
-    				<button onclick="show('loginform')" style="width:99%;" id="choose_login" class="btn btn-success">Log in</button>
+    				<button onclick="show('loginform')" style="width:98%;" id="choose_login" class="btn btn-success">Log in</button>
     			</td>
     			<td align="right" style="width:50%">
-    				<button onclick="show('registerform')" style="width:99%;" id="choose_register" class="btn btn-primary">Register</button>
+    				<button onclick="show('registerform')" style="width:98%;" id="choose_register" class="btn btn-primary">Register</button>
     			</td>
     		</tr>
     	</table>
@@ -17,7 +16,7 @@
     </br>
 
     <div id="splashscreen" align="center">
-    	<img src="assets/images/logo.jpg" alt="Blabber" style="width:1000px;height:500px;">
+    	<img src="assets/images/blabber2.png" alt="Blabber" style="width:1000px;height:500px;">
     </div>
 
     <div id="loginform" align="center" hidden>
@@ -35,12 +34,12 @@
 		<form method="post" action="{{base_path}}/login">
 			<div class="form-group">
 				<label>Username</label>
-				<input type="text" class="form-control" name="username" value="{{username}}">
+				<input style="width:33%" type="text" class="form-control" name="username" value="{{username}}">
 			</div>
 
 			<div class="form-group">
 				<label>Password</label>
-				<input type="password" class="form-control" name="password">
+				<input style="width:33%" type="password" class="form-control" name="password">
 			</div>
 
 			<button type="submit" class="btn btm-primary">Log in!</button>
@@ -50,11 +49,11 @@
     <div id="registerform" align="center" hidden>
     	{% if type == "register-error" %}
 			{% if error %}
-				<div class="alert alert-danger">{{error}}</div>
+				<div style="width:33%" class="alert alert-danger">{{error}}</div>
 			{% endif %}
 
 			{% if message %}
-				<div class="alert alert-success">{{message}}</div>
+				<div style="width:33%" class="alert alert-success">{{message}}</div>
 			{% endif %}
 		{% endif %}
 

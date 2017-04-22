@@ -9,19 +9,11 @@
 
 
 	{% if message %}
-		<div class="alert alert-success">
-			<ul>
-				<li>{{message}}</li>
-			</ul>
-		</div>
+		<div class="alert alert-success">{{message}}</div>
 	{% endif %}
 
 	{% if error %}
-		<div class="alert alert-danger">
-			<ul>
-				<li>{{error}}</li>
-			</ul>
-		</div>
+		<div class="alert alert-danger">{{error}}</div>
 	{% endif %}
 
 	<p>

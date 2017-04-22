@@ -23,6 +23,33 @@
 	    	}
 	    }
 
+	    // Post - Rekisteröidy
+	    public static function handle_registration() {
+	    	$params = $_POST;
+	    	// check for username availability
+
+	    	if (User::is_username_available($params["username"]) == false) {
+	    		Redirect::to("/login", array("type" => "register-error", "error" => "Username already taken. :("));
+	    	}
+
+	    	$attributes = array(
+	    		"username" => $params["username"],
+	    		"password" => $params["password"]
+	    	);
+
+	    	$user = new User($attributes);
+	    	$errs = $user->errors();
+
+	    	if (count($errs) == 0) {
+	    		// success
+	    		$user->save();
+	    		$_SESSION["user"] = $user->id;
+	    		Redirect::to("/", array("message" => "Welcome to Blabber " . $user->username . "!"));
+	    	}
+
+	    	Redirect::to("/login", array("type" => "register-error", "error" => $errs));
+	    }
+
 		// Post - kirjaudu ulos
 	    public static function logout() {
 	    	$_SESSION["user"] = null;
@@ -42,6 +69,9 @@
 			}
 
 			$user = User::find_by_username($username);
+			if ($user == null) {
+				Redirect::to("/globalfeed", array("error" => "User not found."));
+			}
 			$blabs = Blab::find_by_accountid($user->id);
 			$followStatus;
 			if (parent::get_user_logged_in() == null) {

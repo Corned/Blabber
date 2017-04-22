@@ -3,7 +3,7 @@
 		public $id, $username, $password;
 		public function __construct($attributes) {
 			parent::__construct($attributes);
-			$this->validators = array("validate_username");
+			$this->validators = array("validate_username", "validate_password");
 		}
 
 		// Autentikoi käyttäjän
@@ -25,6 +25,23 @@
 			}
 
 			return null;
+		}
+
+		// 
+		public static function is_username_available($username) {
+			$query = DB::connection()->prepare("SELECT * FROM Account WHERE username = :username");
+			$query->execute(array("username" => $username));
+			$row = $query->fetch();
+
+			return $row == null;
+		}
+
+		// 
+		public function save() {
+			$query = DB::connection()->prepare('INSERT INTO Account (username, password) VALUES (:username, :password) RETURNING id');
+			$query->execute(array("username" => $this->username, "password" => $this->password));
+			$row = $query->fetch();
+			$this->id = $row['id'];		
 		}
 
 		// Hakee käyttäjän tietokannasta id:n avulla
@@ -109,18 +126,13 @@
 			if ($this->is_not_null($this->username) == false && $this->validate_string_length_shorter_than($this->username, 3)) {
 				// I cannot compare $this->body to null.
 				// unexpected T_VARIABLE
-				$errs[] = 'Your username must be at least three characters long!';
+				$errs[] = 'Your username must be at least three characters long!\n';
 			}
 
 			if ($this->validate_string_length_longer_than($this->username, 20)) {
 				$errs[] = "Your username must be shorter than 20 characters.";
 			}
-
-			/*if (strpos($this->username, ' ') !== false) {
-				$errs[] = "Your username must not contain any spaces.";
-			}*/
-
-			if (preg_match("/[\'^£$%&*()}{@#~?><>,|?_+-]/", $this->username) == true) {
+			if (preg_match("/[\'^£$%&*()}{@#~?><>,|?_+-]/ ", $this->username) == true) {
 				$errs[] = "Your username must not contain any special characters.";
 			}
 
@@ -133,10 +145,10 @@
 			if ($this->is_not_null($this->password) == false && $this->validate_string_length_shorter_than($this->password, 6)) {
 				// I cannot compare $this->body to null.
 				// unexpected T_VARIABLE
-				$errs[] = 'Your password must be at least six characters long!';
+				$errs[] = 'Your password must be at least six characters long!\n';
 			}
 
-			if ($this->validate_string_length_longer_than($this->body, 32)) {
+			if ($this->validate_string_length_longer_than($this->password, 32)) {
 				$errs[] = "Your password must be shorter than 32 characters.";
 			}
 

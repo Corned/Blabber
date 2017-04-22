@@ -48,10 +48,9 @@
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
-
-						<li>
+						<li >
 							<form method="post" action="#">
-								<div class="form-group">
+								<div id="searchbar" class="form-group"  hidden>
 									<input placeholder="Search for users and blabs" type="text" name="body" class="form-control" maxlength="60">
 								</div>						
 							</form>
@@ -67,6 +66,7 @@
 						{% else %}
 							<li><a href="{{base_path}}/login">Log in</a></li>
 						{% endif %}
+
 					</ul>
 
 				</div>
@@ -89,4 +89,12 @@
 			<script src="{{base_path}}/assets/js/site.js"></script>
 		{% endblock %}
 	</body>
+
+
+	<script>
+		function show_searchbar() {
+
+		}
+	</script>
+
 </html>

@@ -38,7 +38,7 @@
 
 		// Hae kaikki blabit
 		public static function get_personalized_blabs($account_id) {
-			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = Blab.account_id OR Blab.account_id = :account_id ORDER BY Blab.id DESC');
+			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = Blab.account_id ORDER BY Blab.id DESC');
 			$query->execute(array("account_id" => $account_id));
 
 			$rows = $query->fetchAll();
