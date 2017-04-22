@@ -1,6 +1,10 @@
 <?php
 	class UserController extends BaseController {
 	    public static function login() {
+	    	if (self::get_user_logged_in() !== null) {
+	    		Redirect::to("/");
+	    	}
+
 	    	View::make("user/login.html");
 	    }
 
@@ -11,7 +15,7 @@
 	    	$user = User::authenticate($params["username"], $params["password"]);
 
 	    	if (!$user) {
-	    		View::make("user/login.html", array("error" => "Invalid username or password."));
+	    		View::make("user/login.html", array("type" => "login-error", "error" => "Invalid username or password."));
 	    	} else {
 	    		$_SESSION["user"] = $user->id;
 
@@ -22,7 +26,7 @@
 		// Post - kirjaudu ulos
 	    public static function logout() {
 	    	$_SESSION["user"] = null;
-	    	Redirect::to("/login", array("message" => "You've logged out!"));
+	    	Redirect::to("/login");
 	    }
 
 		// Näytä profiili
@@ -33,7 +37,7 @@
 					$username = parent::get_user_logged_in()->username;
 					Redirect::to("/profile/" . $username);
 				} else {
-					Redirect::to("/login", array("error" => "Please log in to view your profile."));
+					Redirect::to("/login", array("type" => "login-error", "error" => "Please log in to view your profile."));
 				}
 			}
 

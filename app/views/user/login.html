@@ -1,34 +1,101 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Log in</h1>
 
-    {% if error %}
-        <div class="alert alert-danger">
-            <ul>
-                {{error}}
-            </ul>
-        </div>
-    {% endif %}
+    <div id="subnavigation" align="center">
+    	<table style="width:1000px;">
+    		<tr>
+    			<td align="left" style="width:50%">
+    				<button onclick="show('loginform')" style="width:99%;" id="choose_login" class="btn btn-success">Log in</button>
+    			</td>
+    			<td align="right" style="width:50%">
+    				<button onclick="show('registerform')" style="width:99%;" id="choose_register" class="btn btn-primary">Register</button>
+    			</td>
+    		</tr>
+    	</table>
+    </div>
 
-    {% if message %}
-        <div class="alert alert-success">
-            <ul>
-                {{message}}
-            </ul>
-        </div>
-    {% endif %}
+    </br>
 
-    <form method="post" action="{{base_path}}/login">
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" class="form-control" name="username" value="{{username}}">
-        </div>
+    <div id="splashscreen" align="center">
+    	<img src="assets/images/logo.jpg" alt="Blabber" style="width:1000px;height:500px;">
+    </div>
 
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
-        </div>
+    <div id="loginform" align="center" hidden>
+    	{% if type == "login-error" %}
+			{% if error %}
+				<div class="alert alert-danger">{{error}}</div>
+			{% endif %}
 
-        <button type="submit" class="btn btm-primary">Log in!</button>
-    </form>
+			{% if message %}
+				<div class="alert alert-success">{{message}}</div>
+			{% endif %}
+		{% endif %}
+
+    	<h1>Log in</h1>
+		<form method="post" action="{{base_path}}/login">
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" name="username" value="{{username}}">
+			</div>
+
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="password">
+			</div>
+
+			<button type="submit" class="btn btm-primary">Log in!</button>
+		</form>
+	</div>
+
+    <div id="registerform" align="center" hidden>
+    	{% if type == "register-error" %}
+			{% if error %}
+				<div class="alert alert-danger">{{error}}</div>
+			{% endif %}
+
+			{% if message %}
+				<div class="alert alert-success">{{message}}</div>
+			{% endif %}
+		{% endif %}
+
+    	<h1>Register</h1>
+		<form method="post" action="{{base_path}}/register">
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" name="username" autocomplete="off">
+			</div>
+
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="password" autocomplete="off">
+			</div>
+
+			<button type="submit" class="btn btm-primary">Register!</button>
+		</form>
+	</div>
+
+
+	<script>
+		function show(id) {
+			hide();
+			document.getElementById(id).style.display = "block";
+		}
+
+		function hide() {
+			document.getElementById("splashscreen").style.display = "none";
+			document.getElementById("loginform").style.display = "none";
+			document.getElementById("registerform").style.display = "none";
+		}
+	</script>
+
+	{% if type == "login-error" %}
+		<script>
+			show('loginform');
+		</script>
+	{% elseif type == "register-error" %}
+		<script>
+			show('registerform');
+		</script>
+	{% endif %}
+
 {% endblock %}
