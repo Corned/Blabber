@@ -16,17 +16,30 @@
 		}
 
 		// Hae kaikki blabit
-		public static function all($options) {
-			if (isset($options) && isset($options["page"]) && isset($options["page_size"])) {
-				$page = $options["page"];
-				$page_size = $options["page_size"];
-			} else {
-				$page = 1;
-				$page_size = 1000;
+		public static function all() {
+			$query = DB::connection()->prepare('SELECT * FROM Blab ORDER BY Blab.id DESC');
+			$query->execute();
+
+			$rows = $query->fetchAll();
+			$blabs = array();
+
+			foreach($rows as $row) {
+				$blabs[] = new Blab(array(
+					'id' => $row['id'],
+					"account_id" => $row["account_id"],
+					"username" => $row["username"],
+					'body' => $row['body']
+				));
 			}
 
-			$query = DB::connection()->prepare('SELECT * FROM Blab ORDER BY Blab.id DESC LIMIT :lim OFFSET :offs');
-			$query->execute(array("lim" => $page_size, "offs" => $page_size * ($page - 1)));
+			return $blabs;
+		}
+
+
+		// Hae kaikki blabit
+		public static function get_personalized_blabs($account_id) {
+			$query = DB::connection()->prepare('SELECT DISTINCT Blab.id, Blab.account_id, Blab.username, Blab.body FROM Blab, Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = Blab.account_id OR Blab.account_id = :account_id ORDER BY Blab.id DESC');
+			$query->execute(array("account_id" => $account_id));
 
 			$rows = $query->fetchAll();
 			$blabs = array();

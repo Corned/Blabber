@@ -29,9 +29,11 @@
 			{% else %}
 				<td>
 					{% if follows == "self" %}
-						<p> You can't follow yourself </p>
+						<button disabled class="btn btn-default">You can't follow yourself.</button>
 					{% else %}
-						<p> Log in to follow {{user.username}}. </p>
+						<form action="{{base_path}}/login" method="get">
+							<button class="btn btn-default" type="submit">Login to follow {{user.username}}!</button>
+						</form>
 					{% endif %}
 				</td>
 			{% endif %}
