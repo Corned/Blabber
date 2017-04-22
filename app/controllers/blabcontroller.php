@@ -101,8 +101,7 @@
 			$params = $_POST;
 			$attributes = array(
 				"id" => $params["id"],
-				"body" => $params["newbody"],
-				"deleted" => FALSE
+				"body" => $params["newbody"]
 			);
 
 			$blab = new Blab($attributes);
@@ -112,7 +111,11 @@
 				$blab->update($blab->id, $blab->body);
 				Redirect::to('/blab/' . $blab->id, array('message' => 'You edited your blab successfully!'));
 			} else {
-				View::make("blab/edit.html", array("errors" => $errors, "attributes" => $attributes));
+				$oldblab = new Blab(array(
+					"id" => $params["id"],
+					"body" => $params["oldbody"]
+				));
+				View::make("blab/edit.html", array("errors" => $errs, "blab" => $oldblab));
 			}
 		}
 

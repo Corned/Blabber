@@ -4,6 +4,7 @@
 
     <form method="post" action="{{base_path}}/blab/edit">
         <input type="hidden" value={{blab.id}} name="id"/>
+        <input type="hidden" value="{{blab.body}}" name="oldbody"/>
         <div class="form-group">
             <label>Message</label>
             <textarea class="form-control" name="newbody" rows="5">{{blab.body}}</textarea>

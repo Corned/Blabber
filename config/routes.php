@@ -13,7 +13,7 @@
     });
 
     $routes->get('/feed', function() {
-        BlabController::globalFeed();
+        BlabController::personalizedFeed();
     });
 
     // New Blab
@@ -83,5 +83,5 @@
 
 
     $routes->get('/(:any)', function() {
-        Redirect::to("/feed");
+        Redirect::to("/globalfeed");
     });
