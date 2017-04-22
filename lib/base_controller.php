@@ -15,7 +15,7 @@
         public static function check_logged_in(){
             // Toteuta kirjautumisen tarkistus tähän.
             if (!isset($_SESSION["user"])) {
-                Redirect::to("/login", array("error" => "Please log in."));
+                Redirect::to("/login", array("type" => "login-error", "error" => "Please log in."));
             }
         }
 

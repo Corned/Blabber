@@ -9,8 +9,17 @@
 	margin: 0px auto;
 }
 
+.nav li {
+	height:100%;
+}
+
+.form-group {
+	margin-bottom: 7.5px;
+}
+
 #searchbar {
 	display: table;
+	margin-top: 7.5px;
 }
 
 #searchbar input {

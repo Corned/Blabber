@@ -13,7 +13,6 @@
 		public static function personalizedFeed() {
 			self::check_logged_in();
 			$user = self::get_user_logged_in();
-
 			$blabs = Blab::get_personalized_blabs($user->id);
 
 			View::make('user/feed.html', array(
