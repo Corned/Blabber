@@ -49,8 +49,8 @@
 
 		// Hae kaikki blabit
 		public static function search($criteria) {
-			$query = DB::connection()->prepare('SELECT DISTINCT * FROM Blab WHERE Blab.body LIKE :criteria OR Blab.username LIKE :criteria ORDER BY Blab.id DESC');
-			$query->execute(array("criteria" => "%".$criteria."%"));
+			$query = DB::connection()->prepare('SELECT DISTINCT * FROM Blab WHERE UPPER(Blab.body) LIKE :criteria OR UPPER(Blab.username) LIKE :criteria ORDER BY Blab.id DESC');
+			$query->execute(array("criteria" => "%".strtoupper($criteria)."%"));
 
 			$rows = $query->fetchAll();
 			$blabs = array();

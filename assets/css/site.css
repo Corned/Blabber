@@ -8,3 +8,12 @@
   max-width: 1200px;
   margin: 0px auto;
 }
+
+#searchbar {
+	display: table;
+}
+
+#searchbar input {
+	display: table-cell;
+	vertical-align: middle;
+}
