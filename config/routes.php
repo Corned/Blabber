@@ -1,8 +1,4 @@
 <?php
-    $routes->get('/hiekkalaatikko', function() {
-        HelloWorldController::sandbox();
-    });
-
     $routes->get('/blab/', function() {
         Redirect::to('');
     });
@@ -76,6 +72,11 @@
         UserController::handle_login();
     });
 
+    // Register
+    $routes->post("/register/", function() {
+        UserController::handle_registration();
+    });
+
     // Logout
     $routes->post("/logout/", function() {
         UserController::logout();
@@ -88,5 +89,9 @@
 
 
     $routes->get('/(:any)', function() {
+        if ($_SESSION["user"] == null) {
+            Redirect::to("/login");
+        }
+
         Redirect::to("/globalfeed");
     });
