@@ -93,7 +93,7 @@
 
 
     $routes->get('/(:any)', function() {
-        if ($_SESSION["user"] == null) {
+        if (!isset($_SESSION["user"])) {
             Redirect::to("/login");
         }
 
