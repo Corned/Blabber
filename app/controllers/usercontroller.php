@@ -72,16 +72,28 @@
 			if ($user == null) {
 				Redirect::to("/globalfeed", array("error" => "User not found."));
 			}
-			$blabs = Blab::find_by_accountid($user->id);
+
+			$blabs;
+			$following;
+			$followers;
+			$favouriteBlabs;
 			$followStatus;
+
+ 			$blabs = Blab::find_by_accountid($user->id);
+			$favouriteBlabs = Blab::find_favourites_by_accountid($user->id);
+
 			if (parent::get_user_logged_in() == null) {
 				$followStatus = "log in";
 			} else {
 				$followStatus = User::is_following(parent::get_user_logged_in()->id, $user->id);
 			}
 
-
-			View::make("user/profile.html", array("user" => $user, "blabs" => $blabs, "follows" => $followStatus));
+			View::make("user/profile.html", array(
+				"user" => $user,
+				"blabs" => $blabs,
+				"favouriteBlabs" => $favouriteBlabs,
+				"follows" => $followStatus
+			));
 	    }
 
 		// Näytä suosikit

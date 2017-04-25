@@ -43,17 +43,17 @@
 						<li><a href="{{base_path}}/feed">Personalized Feed</a></li>
 						<li><a href="{{base_path}}/profile">My Profile</a></li>
 						<li>
-							
+
 						</li>
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<form method="get" action="{{base_path}}/search">
-								<div id="searchbar" class="form-group">
-									<input placeholder="Search for users and blabs" type="text" name="criteria" class="form-control" maxlength="60">
-								</div>						
-							</form>
+							<div id="searchbar" class="form-group">
+								<form method="get" action="{{base_path}}/search">
+										<input placeholder="Search for users and blabs" type="text" name="criteria" class="form-control" maxlength="60">
+								</form>
+							</div>
 						</li>
 
 						{% if user_logged_in %}
