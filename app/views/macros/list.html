@@ -13,7 +13,7 @@
       {% for blab in blabs %}
         <tr>
           <td width="10%"><a href="{{base_path}}/blabber/profile/{{blab.username}}">{{blab.username}}</a></td>
-          <td>{{blab.body}}</td>
+          <td><span style="width:100%; word-wrap: break-word; display:inline-block;">{{blab.body}}</span></td>
           <td width="6%"><a href="{{base_path}}/blabber/blab/{{blab.id}}" class="btn btn-default">EXPAND</a></td>
         </tr>
       {% endfor %}

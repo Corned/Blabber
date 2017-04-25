@@ -24,12 +24,13 @@
 		public static function search() {
 			$params = $_GET;
 			$blabs = Blab::search($params["criteria"]);
-
+			$users = User::search($params["criteria"]);
 
 			View::make('blab/search.html', array(
-				"blabs" => $blabs
+				"blabs" => $blabs,
+				"users" => $users
 			));
-		} 
+		}
 
 		// Luomislomakkeen esittely
 		public static function create() {

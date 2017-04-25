@@ -64,6 +64,24 @@
 			return null;
 		}
 
+		// Hae tietyt käyttäjät
+		public static function search($criteria) {
+			$query = DB::connection()->prepare('SELECT DISTINCT * FROM Account WHERE UPPER(Account.username) LIKE :criteria');
+			$query->execute(array("criteria" => "%".strtoupper($criteria)."%"));
+
+			$rows = $query->fetchAll();
+			$users = array();
+
+			foreach($rows as $row) {
+				$users[] = new Blab(array(
+					'id' => $row['id'],
+					"username" => $row["username"]
+				));
+			}
+
+			return $users;
+		}
+
 		// Hakee käyttäjän tietokannasta käyttäjänimen avulla
 		public static function find_by_username($username) {
 			$query = DB::connection()->prepare('SELECT * FROM Account WHERE username = :username LIMIT 1');
@@ -76,7 +94,7 @@
 				$user = new User(array(
 					'id' => $row['id'],
 					'username' => $row['username'],
-					'password' => $row['password']
+					"password" => $row['password']
 				));
 				return $user;
 			}
