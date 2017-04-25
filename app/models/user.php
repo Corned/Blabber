@@ -83,7 +83,7 @@
 			$users = array();
 
 			foreach($rows as $row) {
-				$users[] = new Blab(array(
+				$users[] = new User(array(
 					"id" => $row["id"],
 					"username" => $row["username"],
 					"description" => $row["description"]
@@ -159,7 +159,7 @@
 			$users = array();
 
 			foreach($rows as $row) {
-				$users[] = new Blab(array(
+				$users[] = new User(array(
 					"id" => $row["id"],
 					"username" => $row["username"],
 					"description" => $row["description"]
@@ -178,7 +178,7 @@
 			$users = array();
 
 			foreach($rows as $row) {
-				$users[] = new Blab(array(
+				$users[] = new User(array(
 					"id" => $row["id"],
 					"username" => $row["username"],
 					"description" => $row["description"]
