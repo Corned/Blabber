@@ -30,23 +30,23 @@
 			<td width="6%">{{blab.id}}</td>
       <td>{{blab.body}}</td>
 
-            {% if isOwner %}
-    			<td width="6%"><a href="{{base_path}}/blab/{{blab.id}}/edit" class="btn btn-warning">EDIT</a></td>
-    			<td width="8%"><a href="{{base_path}}/blab/{{blab.id}}/delete/" class="btn btn-danger">DELETE</a></td>
-            {% endif %}
+        {% if isOwner %}
+    			<td width="4%"><a href="{{base_path}}/blab/{{blab.id}}/edit" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"/></a></td>
+    			<td width="4%"><a href="{{base_path}}/blab/{{blab.id}}/delete/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"/></a></td>
+        {% endif %}
 
-            <td width="4%">
-                <form method="post" action="{{base_path}}/blab/favourite">
-                    <input type="hidden" value={{blab.id}} name="blab_id"/>
-                    <div class="form-group">
-                        {% if liked %}
-                            <button type="submit" class="btn btn-success"><3</button>
-                        {% else %}
-                            <button type="submit" class="btn btn-danger"><\3</button>
-                        {% endif %}
-                    </div>
-                </form>
-            </td>
+          <td width="4%">
+            <form method="post" action="{{base_path}}/blab/favourite">
+              <input type="hidden" value={{blab.id}} name="blab_id"/>
+              <div class="form-group">
+                {% if liked %}
+                  <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-star"/></button>
+                {% else %}
+                  <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-star-empty"/></button>
+                {% endif %}
+              </div>
+            </form>
+          </td>
         </tr>
     </tbody>
   </table>
