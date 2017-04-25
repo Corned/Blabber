@@ -80,6 +80,8 @@
 			$followStatus;
 
  			$blabs = Blab::find_by_accountid($user->id);
+			$following = User::get_following($user->id);
+			$followers = User::get_followers($user->id);
 			$favouriteBlabs = Blab::find_favourites_by_accountid($user->id);
 
 			if (parent::get_user_logged_in() == null) {
@@ -91,7 +93,13 @@
 			View::make("user/profile.html", array(
 				"user" => $user,
 				"blabs" => $blabs,
+				"blabCount" => count($blabs),
+				"following" => $following,
+				"followingCount" => count($following),
+				"followers" => $followers,
+				"followersCount" => count($followers),
 				"favouriteBlabs" => $favouriteBlabs,
+				"favouriteBlabCount" => count($favouriteBlabs),
 				"follows" => $followStatus
 			));
 	    }

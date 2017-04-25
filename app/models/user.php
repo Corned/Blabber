@@ -27,7 +27,7 @@
 			return null;
 		}
 
-		// 
+		//
 		public static function is_username_available($username) {
 			$query = DB::connection()->prepare("SELECT * FROM Account WHERE username = :username");
 			$query->execute(array("username" => $username));
@@ -36,12 +36,12 @@
 			return $row == null;
 		}
 
-		// 
+		//
 		public function save() {
 			$query = DB::connection()->prepare('INSERT INTO Account (username, password) VALUES (:username, :password) RETURNING id');
 			$query->execute(array("username" => $this->username, "password" => $this->password));
 			$row = $query->fetch();
-			$this->id = $row['id'];		
+			$this->id = $row['id'];
 		}
 
 		// Hakee käyttäjän tietokannasta id:n avulla
@@ -118,6 +118,42 @@
 				$query->execute(array("account_id" => $account_id, "follower_id" => $follower_id));
 				return false;
 			}
+		}
+
+		// Hae seurattavat
+		public static function get_followers($account_id) {
+			$query = DB::connection()->prepare('SELECT Account.id, Account.username FROM Account, Follow WHERE Follow.follower_id = :account_id AND Follow.account_id = Account.id');
+			$query->execute(array("account_id" => $account_id));
+
+			$rows = $query->fetchAll();
+			$users = array();
+
+			foreach($rows as $row) {
+				$users[] = new Blab(array(
+					'id' => $row['id'],
+					"username" => $row["username"]
+				));
+			}
+
+			return $users;
+		}
+
+		// Hae seuraajat
+		public static function get_following($account_id) {
+			$query = DB::connection()->prepare('SELECT Account.id, Account.username FROM Account, Follow WHERE Follow.account_id = :account_id AND Follow.follower_id = Account.id');
+			$query->execute(array("account_id" => $account_id));
+
+			$rows = $query->fetchAll();
+			$users = array();
+
+			foreach($rows as $row) {
+				$users[] = new Blab(array(
+					'id' => $row['id'],
+					"username" => $row["username"]
+				));
+			}
+
+			return $users;
 		}
 
 		// Validoi käyttäjänimen
