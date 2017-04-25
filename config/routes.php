@@ -1,14 +1,14 @@
 <?php
-    $routes->get('/blab/', function() {
-        Redirect::to('');
+    $routes->get("/blab/", function() {
+        Redirect::to("");
     });
 
     // Feed
-    $routes->get('/globalfeed', function() {
+    $routes->get("/globalfeed", function() {
         BlabController::globalFeed();
     });
 
-    $routes->get('/feed', function() {
+    $routes->get("/feed", function() {
         BlabController::personalizedFeed();
     });
 
@@ -17,25 +17,25 @@
     });
 
     // New Blab
-    $routes->get('/blab/new/', function() {
+    $routes->get("/blab/new/", function() {
         BlabController::create();
     });
 
-    $routes->post('/blab/new/', function() {
+    $routes->post("/blab/new/", function() {
         BlabController::store();
     });
 
     // Show Blab
-    $routes->get('/blab/:id/', function($id) {
+    $routes->get("/blab/:id/", function($id) {
         BlabController::show($id);
     });
 
     // Edit Blab
-    $routes->get('/blab/:id/edit/', function($id) {
+    $routes->get("/blab/:id/edit/", function($id) {
         BlabController::edit($id);
     });
 
-    $routes->post('/blab/edit/', function() {
+    $routes->post("/blab/edit/", function() {
         BlabController::update();
     });
 
@@ -44,7 +44,7 @@
         BlabController::delete($id);
     });
 
-    $routes->post('/blab/delete/', function() {
+    $routes->post("/blab/delete/", function() {
         BlabController::destroy();
     });
 
@@ -54,11 +54,11 @@
     });
 
     // Profile
-    $routes->get('/profile/:username/', function($username) {
+    $routes->get("/profile/:username/", function($username) {
         UserController::profile($username);
     });
 
-    $routes->get('/profile/', function() {
+    $routes->get("/profile/", function() {
         UserController::profile(null);
     });
 
@@ -68,7 +68,7 @@
     });
 
     // Login
-    $routes->get('/login/', function() {
+    $routes->get("/login/", function() {
         UserController::login();
     });
 
@@ -86,13 +86,23 @@
         UserController::logout();
     });
 
-    $routes->get('/profile/:username/favourites/', function($username) {
-        UserController::favourites($username);
+
+    // Settings
+    $routes->get("/settings/", function() {
+        UserController::settings();
+    });
+
+    $routes->post("/settings/update_description/", function() {
+        UserController::update("description");
+    });
+
+    $routes->post("/delete_account/", function() {
+        UserController::settings();
     });
 
 
 
-    $routes->get('/(:any)', function() {
+    $routes->get("/(:any)", function() {
         if (!isset($_SESSION["user"])) {
             Redirect::to("/login");
         }

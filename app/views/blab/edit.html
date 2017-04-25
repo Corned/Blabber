@@ -2,6 +2,16 @@
 {% block content %}
     <h1>Edit a Blab</br>&emsp;<small>Even Twitter can't do this. ☞ ﾟ ³ ﾟ ☞</small></h1>
 
+    {% if errors %}
+      <div class="alert alert-danger">
+        <table>
+          {% for error in errors %}
+            <tr><td>{{error}}</td></tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+
     <form method="post" action="{{base_path}}/blab/edit">
         <input type="hidden" value={{blab.id}} name="id"/>
         <input type="hidden" value="{{blab.body}}" name="oldbody"/>

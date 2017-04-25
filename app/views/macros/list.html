@@ -28,6 +28,7 @@
     <thead>
       <tr>
         <th>Username</th>
+        <th>Description</th>
       </tr>
     </thead>
 
@@ -35,6 +36,7 @@
       {% for user in users %}
         <tr>
           <td width="10%"><a href="{{base_path}}/blabber/profile/{{user.username}}">{{user.username}}</a></td>
+          <td>{{user.description}}</td>
         </tr>
       {% endfor %}
     </tbody>

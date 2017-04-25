@@ -2,6 +2,7 @@ CREATE TABLE Account(
     id SERIAL NOT NULL,
     username varchar(20) NOT NULL,
     password varchar(32) NOT NULL,
+    description varchar(256) DEFAULT 'Hello, I am new here! :D',
     PRIMARY KEY(id)
 );
 

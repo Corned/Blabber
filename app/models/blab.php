@@ -189,15 +189,15 @@
 		}
 
 		// Päivittää blabin sisältöä
-		public static function update($id, $body) {
-			if ($id > 2147483647) {
+		public function update() {
+			if ($this->id > 2147483647) {
 				return null;
 			}
 
 			$query = DB::connection()->prepare('UPDATE Blab SET body = :body WHERE id = :id');
 
-			$query->bindValue(':id', $id, PDO::PARAM_INT);
-			$query->bindValue(':body', $body, PDO::PARAM_STR);
+			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
+			$query->bindValue(':body', $this->body, PDO::PARAM_STR);
 			$query->execute();
 		}
 

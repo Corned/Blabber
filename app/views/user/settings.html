@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>Settings</h1>
+
+	{% if errors %}
+		<div class="alert alert-danger">
+			<table>
+				{% for error in errors %}
+					<tr><td>{{error}}</td></tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endif %}
+
+  <form method="post" action="{{base_path}}/settings/update_description">
+      <input type="hidden" value={{user.id}} name="id"/>
+      <input type="hidden" value={{user.username}} name="username"/>
+      <input type="hidden" value={{user.password}} name="password"/>
+		  <input type="hidden" value={{user.description}} name="olddescription"/>
+      <div class="form-group">
+          <label>Your Description</label>
+          <textarea class="form-control" name="newdescription" rows="5">{{user.description}}</textarea>
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Update Description</button>
+      </div>
+  </form>
+
+	<br/>
+	<br/>
+
+	<table>
+		<tr>
+			<td>
+				<button onclick="show_delete())" class="btn btn-danger">Do you want to delete your account? <span class="glyphicon glyphicon-alert"/></button>
+			</td>
+			<td id="confirm_delete" >
+				<form method="post" action="{{base_path}}/delete_account" hidden>
+					<button type="submit" class="btn btn-default">Confirm?</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+	<script>
+		function show_delete() {
+			var element = document.getElementById("confirm_delete");
+			element.style.display = "block";
+		}
+
+
+
+{% endblock %}

@@ -2,6 +2,7 @@
 {% import "macros/list.html" as list %}
 {% block content %}
 	<h1>Profile of {{user.username}}</h1>
+	<h3>{{user.description}}</h3>
 
 	{% if message %}
 		<div class="alert alert-success">
