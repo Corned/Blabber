@@ -1,74 +1,80 @@
 {% extends "base.html" %}
-{% block content %}
-    <div id="subnavigation" align="center">
-    	<table style="width:100%;">
-    		<tr>
-    			<td align="left" style="width:50%">
-    				<button onclick="show('loginform')" style="width:98%;" id="choose_login" class="btn btn-success">Log in</button>
-    			</td>
-    			<td align="right" style="width:50%">
-    				<button onclick="show('registerform')" style="width:98%;" id="choose_register" class="btn btn-primary">Register</button>
-    			</td>
-    		</tr>
-    	</table>
-    </div>
+	{% block content %}
+	<div id="subnavigation" align="center">
+		<table style="width:50%" id="scaling">
+			<tr>
+				<td align="left" style="width:50%">
+					<button onclick="show('loginform')" style="width:98%;" id="choose_login" class="btn btn-success">Log in</button>
+				</td>
+				<td align="right" style="width:50%">
+					<button onclick="show('registerform')" style="width:98%;" id="choose_register" class="btn btn-primary">Register</button>
+				</td>
+			</tr>
+		</table>
+	</div>
 
-    </br>
+	</br>
 
-    <div id="splashscreen" align="center">
-    	<img src="assets/images/blabber2.png" alt="Blabber" style="width:100%;height:50%;">
-    </div>
+	<div id="splashscreen" align="center">
+		<img src="assets/images/blabber2.png" alt="Blabber" style="width:100%;height:50%;">
+	</div>
 
-    <div id="loginform" align="center" hidden>
-    	{% if type == "login-error" %}
-  			{% if error %}
-  				<div class="alert alert-danger">{{error}}</div>
-  			{% endif %}
-
-  			{% if message %}
-  				<div class="alert alert-success">{{message}}</div>
-  			{% endif %}
-  		{% endif %}
-
-      <h1>Log in</h1>
-  		<form method="post" action="{{base_path}}/login">
-  			<div class="form-group">
-  				<label>Username</label>
-  				<input style="width:33%" type="text" class="form-control" name="username" value="{{username}}">
-  			</div>
-
-  			<div class="form-group">
-  				<label>Password</label>
-  				<input style="width:33%" type="password" class="form-control" name="password">
-  			</div>
-
-  			<button type="submit" class="btn btm-primary">Log in!</button>
-  		</form>
-  	</div>
-
-    <div id="registerform" align="center" hidden>
-    	{% if type == "register-error" %}
+	<div id="loginform" align="center" hidden>
+		{% if type == "login-error" %}
 			{% if error %}
-				<div class="alert alert-danger">{{error}}</div>
+				<div style="max-width:575px" class="alert alert-danger">{{error}}</div>
 			{% endif %}
+
+			{% if message %}
+				<div style="max-width:575px" class="alert alert-success">{{message}}</div>
+			{% endif %}
+		{% endif %}
+
+		<h1>Log in</h1>
+		<form method="post" action="{{base_path}}/login">
+			<div id="scaling" class="form-group">
+				<label>Username</label>
+				<input style="max-width:575px" type="text" class="form-control" name="username" value="{{username}}">
+			</div>
+
+			<div id="scaling" class="form-group">
+				<label>Password</label>
+				<input style="max-width:575px" type="password" class="form-control" name="password">
+			</div>
+
+			<button type="submit" class="btn btm-primary">Log in!</button>
+			<br/>
+		</form>
+	</div>
+
+	<div id="registerform" align="center" hidden>
+		{% if type == "register-error" %}
+			<div style="max-width:575px" class="alert alert-danger">
+				<table>
+					{% for error in errors %}
+						<tr><td align="center">{{error}}</td></tr>
+					{% endfor %}
+				</table>
+			</div>
 
 			{% if message %}
 				<div class="alert alert-success">{{message}}</div>
 			{% endif %}
 		{% endif %}
 
-    	<h1>Register</h1>
+	<h1>Register</h1>
 		<form method="post" action="{{base_path}}/register">
 			<div class="form-group">
 				<label>Username</label>
-				<input style="width:33%" type="text" class="form-control" name="username" autocomplete="off">
+				<input style="max-width:575px" type="text" class="form-control" name="username" autocomplete="off">
 			</div>
 
-			<div class="form-group">
+			<div id="scaling" class="form-group">
 				<label>Password</label>
-				<input style="width:33%" type="password" class="form-control" name="password" autocomplete="off">
+				<input style="max-width:575px" type="password" class="form-control" name="password" autocomplete="off">
 			</div>
 
+			<br/>
 			<button type="submit" class="btn btm-primary">Register!</button>
 		</form>
 	</div>

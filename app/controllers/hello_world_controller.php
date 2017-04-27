@@ -13,12 +13,16 @@
     public static function sandbox(){
       // Testaa koodiasi täällä
       //View::make("helloworld.html");
-      $b = new Blab(array(
-          'body' => ""
-        ));
+      $attributes = array(
+        "username" => "Adminasd",
+        "password" => "aministarotr"
+      );
 
-      Kint::dump($b->errors());
-      Kint::dump($b->body);
+      $user = new User($attributes);
+      $errs = $user->errors();
+
+      Kint::dump($user);
+      Kint::dump($errs);
     }
 
     public static function newblab() {

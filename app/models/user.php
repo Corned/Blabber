@@ -29,8 +29,8 @@
 
 		//
 		public static function is_username_available($username) {
-			$query = DB::connection()->prepare("SELECT * FROM Account WHERE username = :username");
-			$query->execute(array("username" => $username));
+			$query = DB::connection()->prepare("SELECT * FROM Account WHERE UPPER(username) = :username");
+			$query->execute(array("username" => strtoupper($username)));
 			$row = $query->fetch();
 
 			return $row == null;
@@ -95,9 +95,9 @@
 
 		// Hakee käyttäjän tietokannasta käyttäjänimen avulla
 		public static function find_by_username($username) {
-			$query = DB::connection()->prepare("SELECT Account.id, Account.username, Account.password, Account.description FROM Account WHERE username = :username LIMIT 1");
+			$query = DB::connection()->prepare("SELECT Account.id, Account.username, Account.password, Account.description FROM Account WHERE UPPER(username) = :username LIMIT 1");
 
-			$query->bindValue(":username", $username, PDO::PARAM_STR);
+			$query->bindValue(":username", strtoupper($username), PDO::PARAM_STR);
 			$query->execute();
 			$row = $query->fetch();
 
@@ -191,34 +191,53 @@
 		// Validoi käyttäjänimen
 		public function validate_username() {
 			$errs = array();
-			if ($this->is_not_null($this->username) == false && $this->validate_string_length_shorter_than($this->username, 3)) {
-				// I cannot compare $this->body to null.
-				// unexpected T_VARIABLE
-				$errs[] = "Your username must be at least three characters long!\n";
-			}
 
-			if ($this->validate_string_length_longer_than($this->username, 20)) {
-				$errs[] = "Your username must be shorter than 20 characters.";
-			}
-			if (preg_match("/[\"^£$%&*()}{@#~?><>,|?_+-]/ ", $this->username) == true) {
-				$errs[] = "Your username must not contain any special characters.";
-			}
+			if ($this->is_not_null($this->username) == true) {
+				if ($this->validate_string_length_shorter_than($this->username, 3)) {
+					// I cannot compare $this->body to null.
+					// unexpected T_VARIABLE
+					$errs[] = "Your username must be at least three characters long!\n";
+				}
+
+				if ($this->validate_string_length_longer_than($this->username, 20)) {
+					$errs[] = "Your username must be shorter than 20 characters.";
+				}
+
+				if (preg_match("/[\"^£$%&*()}{@#~?><>,|?_+-]/ ", $this->username) == true) {
+					$errs[] = "Your username must not contain any special characters.";
+				}
+
+		    	if (User::is_username_available($this->username) == false) {
+		    		$errs[] = "Username already taken.";
+		    	}
+		   	} else {
+		   		$errs[] = "Username cannot be null";
+		   	}
+
+	    	Kint::dump($errs);
 
 			return $errs;
 		}
 
+
+
 		// Validoi salasanan.
 		public function validate_password() {
 			$errs = array();
-			if ($this->is_not_null($this->password) == false && $this->validate_string_length_shorter_than($this->password, 6)) {
-				// I cannot compare $this->body to null.
-				// unexpected T_VARIABLE
-				$errs[] = "Your password must be at least six characters long!\n";
+
+			if ($this->is_not_null($this->username) == true) {
+				if ($this->validate_string_length_shorter_than($this->password, 6)) {
+					$errs[] = "Your password must be at least six characters long!\n";
+				}
+
+				if ($this->validate_string_length_longer_than($this->password, 32)) {
+					$errs[] = "Your password must be shorter than 32 characters.";
+				}
+			} else {
+				$errs[] = "Password cannot be null.";
 			}
 
-			if ($this->validate_string_length_longer_than($this->password, 32)) {
-				$errs[] = "Your password must be shorter than 32 characters.";
-			}
+	    	Kint::dump($errs);
 
 			return $errs;
 		}
@@ -230,6 +249,7 @@
 				$errs[] = "Your description must be shorter than 256 characters.";
 			}
 
+	    	Kint::dump($errs);
 			return $errs;
 		}
 	}

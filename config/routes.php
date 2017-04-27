@@ -100,6 +100,9 @@
         UserController::settings();
     });
 
+    $routes->get("/hiekkalaatikko", function() {
+        HelloWorldController::sandbox();
+    });
 
 
     $routes->get("/(:any)", function() {

@@ -1,12 +1,12 @@
-INSERT INTO Account(id, username, password) VALUES (0, 'admin', 'admin');
-INSERT INTO Account(id, username, password) VALUES (1, 'Corned', 'corned');
-INSERT INTO Account(id, username, password) VALUES (2, 'Maissitettu', 'maissitettu');
-INSERT INTO Account(id, username, password) VALUES (3, 'XxXMasterXxX', 'salasana');
-INSERT INTO Account(id, username, password) VALUES (4, 'Jussi', 'salasana');
-INSERT INTO Account(id, username, password) VALUES (5, 'Maisa', 'salasana');
-INSERT INTO Account(id, username, password) VALUES (6, 'Muurari', 'salasana');
-INSERT INTO Account(id, username, password) VALUES (7, 'ElPresidente', 'salasana');
-INSERT INTO Account(id, username, password) VALUES (8, 'Saitama', 'salasana');
+/* id 1 */ INSERT INTO Account(username, password) VALUES ('admin', 'admin');
+/* id 2 */ INSERT INTO Account(username, password) VALUES ('Corned', 'corned');
+/* id 3 */ INSERT INTO Account(username, password) VALUES ('Maissitettu', 'maissitettu');
+/* id 4 */ INSERT INTO Account(username, password) VALUES ('XxXMasterXxX', 'salasana');
+/* id 5 */ INSERT INTO Account(username, password) VALUES ('Jussi', 'salasana');
+/* id 6 */ INSERT INTO Account(username, password) VALUES ('Maisa', 'salasana');
+/* id 7 */ INSERT INTO Account(username, password) VALUES ('Muurari', 'salasana');
+/* id 8 */ INSERT INTO Account(username, password) VALUES ('ElPresidente', 'salasana');
+/* id 9 */ INSERT INTO Account(username, password) VALUES ('Saitama', 'salasana');
 
 INSERT INTO Follow(account_id, follower_id) VALUES (0, 1);
 INSERT INTO Follow(account_id, follower_id) VALUES (0, 3);

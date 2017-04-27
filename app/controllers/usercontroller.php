@@ -10,6 +10,7 @@
 
 		// Post - kirjaudu
 	    public static function handle_login() {
+            echo "<script>console.log('Debug Objects');</script>";
 	    	$params = $_POST;
 
 	    	$user = User::authenticate($params["username"], $params["password"]);
@@ -26,11 +27,6 @@
 	    // Post - Rekisteröidy
 	    public static function handle_registration() {
 	    	$params = $_POST;
-	    	// check for username availability
-
-	    	if (User::is_username_available($params["username"]) == false) {
-	    		Redirect::to("/login", array("type" => "register-error", "error" => "Username already taken. :("));
-	    	}
 
 	    	$attributes = array(
 	    		"username" => $params["username"],
@@ -47,7 +43,7 @@
 	    		Redirect::to("/", array("message" => "Welcome to Blabber " . $user->username . "!"));
 	    	}
 
-	    	Redirect::to("/login", array("type" => "register-error", "error" => $errs));
+	    	Redirect::to("/login", array("type" => "register-error", "errors" => $errs));
 	    }
 
 		// Post - kirjaudu ulos

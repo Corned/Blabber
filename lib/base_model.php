@@ -38,5 +38,4 @@
     public function validate_string_length_shorter_than($string, $length) {
       return strlen($string) < $length;
     }
-
   }
