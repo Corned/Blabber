@@ -92,8 +92,8 @@
         UserController::settings();
     });
 
-    $routes->post("/settings/update_description/", function() {
-        UserController::update("description");
+    $routes->post("/settings/update_description", function() {
+        UserController::update_description();
     });
 
     $routes->post("/delete_account/", function() {

@@ -1,53 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Showing a Blab</br>&emsp;<small>A lonely blab..</small></h1>
+	<h1>Showing a Blab</br>&emsp;<small>A lonely blab..</small></h1>
 
-    {% if message %}
-        <div class="alert alert-success">
-            <ul>
-                <li>{{message}}</li>
-            </ul>
-        </div>
-    {% endif %}
+	{% if message %}
+		<div class="alert alert-success">
+			<ul>
+				<li>{{message}}</li>
+			</ul>
+		</div>
+	{% endif %}
 
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Username</th>
-        <th>Blab ID</th>
-        <th>Message</th>
-        {% if isOwner %}
-            <th></th>
-            <th></th>
-        {% endif %}
-        <th></th>
-      </tr>
-    </thead>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Picture</th>
+				<th>Content</th>
+				{% if isOwner %}
+					<th></th>
+					<th></th>
+				{% endif %}
+				<th></th>
+			</tr>
+		</thead>
 
-    <tbody>
-        <tr>
-			<td width="10%"><a href="{{base_path}}/profile/{{blab.username}}">{{blab.username}}</a></td>
-			<td width="6%">{{blab.id}}</td>
-      <td>{{blab.body}}</td>
+		<tbody>
+			<tr>
+				<td width="100px"><a href="{{base_path}}/profile/{{blab.username}}"></a></td>
+				<td>
+					<p style="color:gray"><a style="color:black" href="{{base_path}}/profile/{{blab.username}}"><b>{{blab.username}}</b></a> <-- accountname @Username</p>
+					<p>{{blab.body}}</p>
+				</td>
+				{% if isOwner %}
+					<td width="4%"><a href="{{base_path}}/blab/{{blab.id}}/edit" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"/></a></td>
+					<td width="4%"><a href="{{base_path}}/blab/{{blab.id}}/delete/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"/></a></td>
+				{% endif %}
 
-        {% if isOwner %}
-    			<td width="4%"><a href="{{base_path}}/blab/{{blab.id}}/edit" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"/></a></td>
-    			<td width="4%"><a href="{{base_path}}/blab/{{blab.id}}/delete/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"/></a></td>
-        {% endif %}
+				<td width="4%">
+					<form method="post" action="{{base_path}}/blab/favourite">
+						<input type="hidden" value={{blab.id}} name="blab_id"/>
+						<div class="form-group">
+							{% if liked %}
+								<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-star"/></button>
+							{% else %}
+								<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-star-empty"/></button>
+							{% endif %}
+						</div>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-          <td width="4%">
-            <form method="post" action="{{base_path}}/blab/favourite">
-              <input type="hidden" value={{blab.id}} name="blab_id"/>
-              <div class="form-group">
-                {% if liked %}
-                  <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-star"/></button>
-                {% else %}
-                  <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-star-empty"/></button>
-                {% endif %}
-              </div>
-            </form>
-          </td>
-        </tr>
-    </tbody>
-  </table>
 {% endblock %}

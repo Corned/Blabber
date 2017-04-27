@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% import "macros/list.html" as list %}
 {% block content %}
-	<h1>Profile of {{user.username}}</h1>
-	<h3>{{user.description}}</h3>
+	<h1>Profile of {{user.username}}<br/>&emsp;<small>{{user.description}}</small></h1>
+	
 
 	{% if message %}
 		<div class="alert alert-success">
@@ -54,11 +54,11 @@
 	</div>
 
 	<div id="following" hidden>
-		{{list.create_user_list(following)}}
+		{{list.create_user_list(following, followingCount)}}
 	</div>
 
 	<div id="followers" hidden>
-		{{list.create_user_list(followers)}}
+		{{list.create_user_list(followers, followersCount)}}
 	</div>
 
 	<div id="favourites" hidden>

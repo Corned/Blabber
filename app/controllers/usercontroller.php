@@ -100,41 +100,41 @@
 			));
 	    }
 
-			// Settings
-			public static function settings() {
-					self::check_logged_in();
+		// Settings
+		public static function settings() {
+				self::check_logged_in();
 
-					$user = self::get_user_logged_in();
-					View::make("user/settings.html", array("user" => $user));
-			}
+				$user = self::get_user_logged_in();
+				View::make("user/settings.html", array("user" => $user));
+		}
 
-			// Update
-			public static function update($type) {
-					$params = $_POST;
-					$attributes = array(
-							"id" => $params["id"],
-							"description" => $params["newdescription"],
-							"username" => $params["username"],
-							"password" => $params["password"]
-					);
+		// Update
+		public static function update_description() {
+				$params = $_POST;
+				$attributes = array(
+						"id" => $params["id"],
+						"description" => $params["newdescription"],
+						"username" => $params["username"],
+						"password" => $params["password"]
+				);
 
-					$user = new User($attributes);
-					$errs = $user->errors();
+				$user = new User($attributes);
+				$errs = $user->validate_description();
 
-					if (count($errs) == 0) {
-						$user->update();
-						Redirect::to("/settings", array("message" => "Success!"));
-					} else {
-						$oldUser = new User(array(
-							"id" => $params["id"],
-							"description" => $params["olddescription"],
-							"username" => $params["username"],
-							"password" => $params["password"]
-						));
-						View::make("user/settings.html", array("errors" => $errs, "user" => $oldUser));
-					}
+				if (count($errs) == 0) {
+					$user->update();
+					Redirect::to("/settings", array("message" => "Your description was successfully updated!"));
+				} else {
+					$oldUser = new User(array(
+						"id" => $params["id"],
+						"description" => $params["olddescription"],
+						"username" => $params["username"],
+						"password" => $params["password"]
+					));
+					View::make("user/settings.html", array("errors" => $errs, "user" => $oldUser));
+				}
 
-			}
+		}
 
 	    // Follow
 	    public static function follow($username) {

@@ -28,7 +28,8 @@
 
 			View::make('blab/search.html', array(
 				"blabs" => $blabs,
-				"users" => $users
+				"users" => $users,
+				"userCount" => COUNT($users)
 			));
 		}
 

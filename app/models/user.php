@@ -38,8 +38,8 @@
 
 		//
 		public function save() {
-			$query = DB::connection()->prepare("INSERT INTO Account (username, password, description) VALUES (:username, :password, :description) RETURNING id");
-			$query->execute(array("username" => $this->username, "password" => $this->password, "description" => $this->description));
+			$query = DB::connection()->prepare("INSERT INTO Account (username, password) VALUES (:username, :password) RETURNING id");
+			$query->execute(array("username" => $this->username, "password" => $this->password));
 			$row = $query->fetch();
 			$this->id = $row["id"];
 		}
@@ -214,8 +214,6 @@
 		   		$errs[] = "Username cannot be null";
 		   	}
 
-	    	Kint::dump($errs);
-
 			return $errs;
 		}
 
@@ -237,8 +235,6 @@
 				$errs[] = "Password cannot be null.";
 			}
 
-	    	Kint::dump($errs);
-
 			return $errs;
 		}
 
@@ -249,7 +245,6 @@
 				$errs[] = "Your description must be shorter than 256 characters.";
 			}
 
-	    	Kint::dump($errs);
 			return $errs;
 		}
 	}

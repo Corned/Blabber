@@ -12,13 +12,17 @@
 		</div>
 	{% endif %}
 
+	{% if message %}
+		<div class="alert alert-success">{{message}}</div>
+	{% endif %}
+
   <form method="post" action="{{base_path}}/settings/update_description">
-      <input type="hidden" value={{user.id}} name="id"/>
-      <input type="hidden" value={{user.username}} name="username"/>
-      <input type="hidden" value={{user.password}} name="password"/>
-		  <input type="hidden" value={{user.description}} name="olddescription"/>
+      <input type="hidden" value="{{user.id}}" name="id"/>
+      <input type="hidden" value="{{user.username}}" name="username"/>
+      <input type="hidden" value="{{user.password}}" name="password"/>
+		  <input type="hidden" value="{{user.description}}" name="olddescription"/>
       <div class="form-group">
-          <label>Your Description</label>
+          <label>Tell us about yourself:</label>
           <textarea class="form-control" name="newdescription" rows="5">{{user.description}}</textarea>
       </div>
       <div class="form-group">
