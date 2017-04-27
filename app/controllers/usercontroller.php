@@ -16,7 +16,7 @@
 	    	$user = User::authenticate($params["username"], $params["password"]);
 
 	    	if (!$user) {
-	    		View::make("user/login.html", array("type" => "login-error", "error" => "Invalid username or password."));
+	    		Redirect::to("/login", array("type" => "login-error", "error" => "Invalid username or password."));
 	    	} else {
 	    		$_SESSION["user"] = $user->id;
 

@@ -20,6 +20,9 @@ INSERT INTO Account(username, password, description)
 INSERT INTO Account(username, password, description) 
 	VALUES ('Joker', 'password', 'Hahahahhaa');
 
+INSERT INTO Account(username, password, description) 
+	VALUES ('Spam', 'password', 'Used to test loading features.');
+
 -- Create Blabs
 INSERT INTO Blab (account_id, username, body)
 	VALUES (1, 'admin', 'Blabber Online');
@@ -90,8 +93,4 @@ INSERT INTO Follow (account_id, follower_id)
 
 INSERT INTO Follow (account_id, follower_id)
 	VALUES (7, 4);
-
-
-
-
 
