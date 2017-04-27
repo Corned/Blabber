@@ -11,13 +11,13 @@
 		<tbody>
 			{% for blab in blabs %}
 				<tr>
-					<td width="100px">
+					<td width="75px">
 						<a href="{{base_path}}/blabber/profile/{{blab.username}}">
-							<img src="http://i.imgur.com/T1CzGFB.png" alt="profile_picture" style="width:100px;height:100px;" border="0">
+							<img src="http://i.imgur.com/T1CzGFB.png" alt="profile_picture" style="width:75px;height:75px;" border="0">
 						</a>
 					</td>
 					<td>
-						<p style="color:gray"><a style="color:black" href="{{base_path}}/blabber/profile/{{blab.username}}"><b>{{blab.username}}</b></a> <-- accountname @Username</p>
+						<p style="color:gray"><a style="color:black" href="{{base_path}}/blabber/profile/{{blab.username}}"><b>{{blab.username}}</b></a> @{{blab.username}}</p>
 						<p>{{blab.body}}</p>
 					</td>
 					<td width="100px"><a href="{{base_path}}/blabber/blab/{{blab.id}}" class="btn btn-default">EXPAND</a></td>
@@ -29,24 +29,6 @@
 
 
 {% macro create_user_list(users, nums) %}
-	<script language="javascript" type="text/javascript">
-		var i = 0;
-		function write(data) {
-			//for (var i = 0; i < 5; i++) {
-				if (i % 3 == 0) {
-					document.write("<tr>");
-				} 
-				document.write("<td>")
-				document.write(data.username);
-				document.write("</td>")
-				if (i % 3 == 2) {
-					document.write("</tr>")
-				}
-				i = i + 1;
-			//}
-		}
-	</script>
-
 	{% if nums > 0 %}
 	<table align="center" style="border-collapse: separate;border-spacing: 10px;">
 		{% for index in 0..nums-1 %}
@@ -55,15 +37,15 @@
 			{% endif %}
 
 			<td width="33%">
-				<table class="table table-bordered">
+				<table height="100%" class="table table-bordered">
 					<tr>
-						<td width="100px">
+						<td width="75px">
 							<a href="{{base_path}}/blabber/profile/{{users[index].username}}">
-								<img src="http://i.imgur.com/T1CzGFB.png" alt="profile_picture" style="width:100px;height:100px;" border="0">
+								<img src="http://i.imgur.com/T1CzGFB.png" alt="profile_picture" style="width:75px;height:75px;" border="0">
 							</a>
 						</td>
 						<td>
-							<p style="color:gray"><a style="color:black" href="{{base_path}}/blabber/profile/{{users[index].username}}"><b>{{users[index].username}}</b></a> @Username</p>
+							<p style="color:gray"><a style="color:black" href="{{base_path}}/blabber/profile/{{users[index].username}}"><b>{{users[index].username}}</b></a> @{{users[index].username}}</p>
 							<p>{{users[index].description}}</p>
 						</td>
 					</tr>
@@ -76,7 +58,7 @@
 		{% endfor %}
 	</table>
 	{% else %}
-	<h4>Nothing here :(</h4>
+		<h4>Nothing here :(</h4>
 	{% endif %}
 
 

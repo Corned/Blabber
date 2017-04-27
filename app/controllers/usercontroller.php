@@ -60,7 +60,7 @@
 					$username = parent::get_user_logged_in()->username;
 					Redirect::to("/profile/" . $username);
 				} else {
-					Redirect::to("/login", array("type" => "login-error", "error" => "Please log in to view your profile."));
+					Redirect::to("/login", array("type" => "login-error", "error" => "Please log in."));
 				}
 			}
 

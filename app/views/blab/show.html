@@ -25,9 +25,13 @@
 
 		<tbody>
 			<tr>
-				<td width="100px"><a href="{{base_path}}/profile/{{blab.username}}"></a></td>
+				<td width="75px">
+					<a href="{{base_path}}/profile/{{blab.username}}">
+						<img src="http://i.imgur.com/T1CzGFB.png" alt="profile_picture" style="width:75px;height:75px;" border="0">
+					</a>
+				</td>
 				<td>
-					<p style="color:gray"><a style="color:black" href="{{base_path}}/profile/{{blab.username}}"><b>{{blab.username}}</b></a> <-- accountname @Username</p>
+					<p style="color:gray"><a style="color:black" href="{{base_path}}/profile/{{blab.username}}"><b>{{blab.username}}</b></a> @{{blab.username}}</p>
 					<p>{{blab.body}}</p>
 				</td>
 				{% if isOwner %}
