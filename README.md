@@ -21,10 +21,13 @@ Voit kirjautua sisään menemällä [kirjautumissivulle](http://koliver.users.cs
 * [Buttons](http://getbootstrap.com/css/#buttons)
 
 ## Linkkejä
+### Julkisia
 * [New Blab](http://koliver.users.cs.helsinki.fi/blabber/blab/new)
-* [Global Feed](http://koliver.users.cs.helsinki.fi/blabber/feed)
-* [Show a Blab](http://koliver.users.cs.helsinki.fi/blabber/blab/17)
-* [Edit a Blab](http://koliver.users.cs.helsinki.fi/blabber/blab/edit/17)
-* [Notifications](http://koliver.users.cs.helsinki.fi/blabber/notifications)
+* [Global Feed](http://koliver.users.cs.helsinki.fi/blabber/globalfeed)
+* [Admin Profile](http://koliver.users.cs.helsinki.fi/blabber/profile/admin)
+
+### Vaatii kirjautumisen
+* [Feed](http://koliver.users.cs.helsinki.fi/blabber/feed)
 * [Profile](http://koliver.users.cs.helsinki.fi/blabber/profile)
 * [Settings](http://koliver.users.cs.helsinki.fi/blabber/settings)
+* [New Blab](http://koliver.users.cs.helsinki.fi/blabber/blab/new)
