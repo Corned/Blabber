@@ -14,15 +14,19 @@
   		</div>
   	{% endif %}
 
-    <form method="post" action="{{base_path}}/blab/edit">
-        <input type="hidden" value={{blab.id}} name="id"/>
-        <input type="hidden" value="{{blab.body}}" name="oldbody"/>
-        <div class="form-group">
-            <label>Message</label>
-            <textarea class="form-control" name="newbody" rows="5">{{blab.body}}</textarea>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-    </form>
-{% endblock %}
+    <div align="center">
+      <div width="900px">
+        <form method="post" action="{{base_path}}/blab/edit">
+            <input type="hidden" value={{blab.id}} name="id"/>
+            <input type="hidden" value="{{blab.body}}" name="oldbody"/>
+            <div class="form-group">
+                <h2>Message</h2>
+                <textarea class="form-control" name="newbody" rows="5">{{blab.body}}</textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="navbutton-selected">Save</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  {% endblock %}

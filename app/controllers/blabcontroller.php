@@ -150,6 +150,6 @@
 			$params = $_POST;
 			$blab = new Blab(array("id" => $params["id"]));
 			$blab->destroy();
-			Redirect::to("/feed", array("message" => "Your blab was deleted successfully!"));
+			Redirect::to("/", array("message" => "Your blab was deleted successfully!"));
 		}
 	}

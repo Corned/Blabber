@@ -83,6 +83,11 @@
 					font-size: 15px;
 				}
 
+				.jumbotron-logo {
+					color: white;
+					font-family: "Comic Sans MS";
+				}
+
 				/* Blab related */
 				.blab-body {
 					color: black;
@@ -293,21 +298,27 @@
 					color: gray;
 				}
 
-				/* Settings Warning Buttons */
+				/* Button Styles */
 				.button-warning {
-						background-color: #D24D57;
-						border: 0;
-						box-shadow: none;
-						color: #FFFFFF;
-						font-family: monospace;
-						font-size: 30px;
-						height: auto;
-						-webkit-appearance: none;
-						width: 100%;
+					background-color: #D24D57;
+					border: 0;
+					box-shadow: none;
+					color: #FFFFFF;
+					font-family: monospace;
+					font-size: 30px;
+					height: auto;
+					-webkit-appearance: none;
+					width: 100%;
 				}
 
-				/* */
-				.navbar.navbar-default, .navbar-toggle.collapsed {
+				/* */	
+				.navbar.navbar-default {
+					background-color: #333;
+					border: 0px;
+					border-radius: 0px;
+				}
+
+				.navbar-toggle.collapsed {
 					background-color: #333;
 					border: 0px;
 					border-radius: 0px;
@@ -327,22 +338,20 @@
 					font-family: monospace;
 					font-size: 20px;
 
-					margin: 20px;
+					padding: 20px;
 					width: 900px;
 				}
 
 				.alert-success {
-					background-color: #A2DED0;
+					background-color: #F1A9A0;
 					color: white;
 					font-family: monospace;
 					font-size: 20px;
 
-					margin: 20px;
+					padding: 20px;
 					width: 900px;
 				}
 			</style>
-
-
 		{% endblock %}
 	</head>
 
