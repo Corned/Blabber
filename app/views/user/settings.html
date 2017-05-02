@@ -1,55 +1,61 @@
 {% extends "base.html" %}
-{% block content %}
-	<h1>Settings</h1>
+	{% block content %}
+
+	{% import "macros/alert.html" as alert %}
+
+
+	<h1 align="center">Settings</h1>
 
 	{% if errors %}
-		<div class="alert alert-danger">
-			<table>
-				{% for error in errors %}
-					<tr><td>{{error}}</td></tr>
-				{% endfor %}
-			</table>
+		<div align="center">
+			<div class="alert-danger">
+				<table>
+					{% for error in errors %}
+						<tr><td><div align="center">{{error}}</div></td></tr>
+					{% endfor %}
+				</table>
+			</div>
 		</div>
 	{% endif %}
 
 	{% if message %}
-		<div class="alert alert-success">{{message}}</div>
+		<div align="center">
+			<div class="alert-success">
+				<div align="center">{{message}}</div>
+			</div>
+		</div>
 	{% endif %}
 
-  <form method="post" action="{{base_path}}/settings/update_description">
-      <input type="hidden" value="{{user.id}}" name="id"/>
-      <input type="hidden" value="{{user.username}}" name="username"/>
-      <input type="hidden" value="{{user.password}}" name="password"/>
-		  <input type="hidden" value="{{user.description}}" name="olddescription"/>
-      <div class="form-group">
-          <label>Tell us about yourself:</label>
-          <textarea class="form-control" name="newdescription" rows="5">{{user.description}}</textarea>
-      </div>
-      <div class="form-group">
-          <button type="submit" class="btn btn-primary">Update Description</button>
-      </div>
-  </form>
+	<div align="center">
+		<div style="width: 900px;">
+		  <form method="post" action="{{base_path}}/settings/update_description">
+		      <input type="hidden" value="{{user.id}}" name="id"/>
+		      <input type="hidden" value="{{user.username}}" name="username"/>
+		      <input type="hidden" value="{{user.password}}" name="password"/>
+				  <input type="hidden" value="{{user.description}}" name="olddescription"/>
+		      <div class="form-group">
+		          <p>Tell us about yourself:</p>
+		          <textarea class="form-control" name="newdescription" rows="5" maxlength="256">{{user.description}}</textarea>
+		      </div>
+		      <div class="form-group">
+		          <button type="submit" class="navbutton">Update Description</button>
+		      </div>
+		  </form>
 
-	<br/>
+			<br/>
+			<br/>
+			<br/>
 
-	<table>
-		<tr>
-			<td>
-				<button onclick="show_delete()" class="btn btn-danger">Do you want to delete your account? <span class="glyphicon glyphicon-alert"/></button>
-			</td>
-		</tr>
-		<tr>
-			<td><br/></td>
-		</tr>
-		<tr>
-			<td>
-				<form id="confirm_delete" method="post" action="{{base_path}}/delete_account" hidden>
-					<button type="submit" class="btn btn-danger" disabled>Confirm?</button>
-				</form>
-			</td>
-		</tr>
 
-	</table>
+			<button onclick="show_delete()" class="button-warning">Do you want to delete your account? <span class="glyphicon glyphicon-alert"/></button>
+			<br/>
+			<br/>
+			<form id="confirm_delete" method="post" action="{{base_path}}/delete_account" hidden>
+				<button type="submit" class="button-warning" disabled>Confirm?</button>
+			</form>
+
+		</div>
+	</div>
 
 	<script>
 		function show_delete() {

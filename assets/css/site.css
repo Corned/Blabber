@@ -1,3 +1,9 @@
+::-webkit-scrollbar {
+	display: none;
+}
+
+
+
 #main-container{
 	max-width: 1200px;
 	padding: 10px 25px;
@@ -5,16 +11,24 @@
 }
 
 .navbar .container-fluid{
+	background-color: #333;
+	border-radius: 0px;
+	position: fixed;
 	max-width: 1200px;
 	margin: 0px auto;
 }
 
-.nav li {
-	height:100%;
-}
-
 .form-group {
 	margin-bottom: 7.5px;
+}
+
+.navbar.navbar-default {
+
+		background-color: #333;
+		border-radius: 0px;
+		position: fixed;
+		max-width: 1200px;
+		margin: 0px auto;
 }
 
 #searchbar {

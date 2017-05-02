@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Edit a Blab</br>&emsp;<small>Even Twitter can't do this. ☞ ﾟ ³ ﾟ ☞</small></h1>
+    <h1 align="center">Edit a Blab</h1>
 
     {% if errors %}
-      <div class="alert alert-danger">
-        <table>
-          {% for error in errors %}
-            <tr><td>{{error}}</td></tr>
-          {% endfor %}
-        </table>
-      </div>
-    {% endif %}
+  		<div align="center">
+  			<div class="alert-danger">
+  				<table>
+  					{% for error in errors %}
+  						<tr><td><div align="center">{{error}}</div></td></tr>
+  					{% endfor %}
+  				</table>
+  			</div>
+  		</div>
+  	{% endif %}
 
     <form method="post" action="{{base_path}}/blab/edit">
         <input type="hidden" value={{blab.id}} name="id"/>

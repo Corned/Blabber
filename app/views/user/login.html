@@ -22,23 +22,31 @@
 	<div id="loginform" align="center" hidden>
 		{% if type == "login-error" %}
 			{% if error %}
-				<div style="max-width:575px" class="alert alert-danger">{{error}}</div>
+				<div align="center">
+					<div class="alert-danger">
+						<div align="center">{{error}}</div>
+					</div>
+				</div>
 			{% endif %}
 
 			{% if message %}
-				<div style="max-width:575px" class="alert alert-success">{{message}}</div>
+				<div align="center">
+					<div class="alert-success">
+						<div align="center">{{message}}</div>
+					</div>
+				</div>
 			{% endif %}
 		{% endif %}
 
 		<h1>Log in</h1>
 		<form method="post" action="{{base_path}}/login">
 			<div id="scaling" class="form-group">
-				<label>Username</label>
+				<p>Username</p>
 				<input style="max-width:575px" type="text" class="form-control" name="username" value="{{username}}">
 			</div>
 
 			<div id="scaling" class="form-group">
-				<label>Password</label>
+				<p>Password</p>
 				<input style="max-width:575px" type="password" class="form-control" name="password">
 			</div>
 
@@ -49,16 +57,24 @@
 
 	<div id="registerform" align="center" hidden>
 		{% if type == "register-error" %}
-			<div style="max-width:575px" class="alert alert-danger">
-				<table>
-					{% for error in errors %}
-						<tr><td align="center">{{error}}</td></tr>
-					{% endfor %}
-				</table>
-			</div>
+			{% if errors %}
+				<div align="center">
+					<div class="alert-danger">
+						<table>
+							{% for error in errors %}
+								<tr><td><div align="center">{{error}}</div></td></tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			{% endif %}
 
 			{% if message %}
-				<div class="alert alert-success">{{message}}</div>
+				<div align="center">
+					<div class="alert-success">
+						<div align="center">{{message}}</div>
+					</div>
+				</div>
 			{% endif %}
 		{% endif %}
 

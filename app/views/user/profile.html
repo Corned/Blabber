@@ -1,51 +1,73 @@
 {% extends "base.html" %}
 {% import "macros/list.html" as list %}
 {% block content %}
-	<h1>Profile of {{user.username}}<br/>&emsp;<small>{{user.description}}</small></h1>
-	
+	<h1 align="center">Profile of {{user.username}}</h1>
 
-	{% if message %}
-		<div class="alert alert-success">
-			<ul>
-				<li>{{message}}</li>
-			</ul>
+	{% if user.description != "" %}
+		<div align="center">
+			<div align="center" class="account-description-panel">
+				<p align="center" class="account-description">{{user.description}}</p>
+			</div>
 		</div>
 	{% endif %}
 
+
+	{% if message %}
+		<div align="center">
+			<div class="alert-success">
+				<div align="center">{{message}}</div>
+			</div>
+		</div>
+	{% endif %}
 	<br/>
 
 	{% if follows == "true" %}
-		<form method="post" action="{{base_path}}/profile/{{user.username}}/follow">
-			<input type="hidden" value="follow" name="action"/>
-			<button id="unfollow_button" onmouseover="following_onMouseEnter()" onmouseout="following_onMouseLeave()" type="submit" class="btn btn-primary">Following</button>
-		</form>
+		<div align="center">
+			<div class="follow-panel">
+			<form method="post" action="{{base_path}}/profile/{{user.username}}/follow">
+				<input type="hidden" value="follow" name="action"/>
+				<button class="follow-button-unfollow" id="unfollow_button" type="submit">Click to Unfollow {{user.username}}</button>
+			</form>
+		</div>
+		</div>
 	{% elseif follows == "false" %}
-		<form method="post" action="{{base_path}}/profile/{{user.username}}/follow">
-			<input type="hidden" value="unfollow" name="action"/>
-			<button type="submit" class="btn btn-default">Follow</button>
-		</form>
+		<div align="center">
+			<div class="follow-panel">
+				<form method="post" action="{{base_path}}/profile/{{user.username}}/follow">
+					<input type="hidden" value="unfollow" name="action"/>
+					<button class="follow-button" type="submit">Click to Follow {{user.username}}</button>
+				</form>
+			</div>
+		</div>
 	{% else %}
 		{% if follows == "self" %}
-			<button disabled class="btn btn-default">You can't follow yourself.</button>
-			<br/>
+		<div align="center">
+			<div class="follow-panel">
+				<button class="follow-button-disabled" disabled>You can't follow yourself.</button>
+			</div>
+		</div>
 		{% else %}
-			<form action="{{base_path}}/login" method="get">
-				<button class="btn btn-default" type="submit">Login to follow {{user.username}}!</button>
-			</form>
+			<div align="center">
+				<div class="follow-panel">
+					<form action="{{base_path}}/login" method="get">
+						<button class="follow-button-login" type="submit">Login to follow {{user.username}}!</button>
+					</form>
+				</div>
+			</div>
 		{% endif %}
 	{% endif %}
 
 	<br/>
-
 	<!-- Navigation bar for profiles -->
-	<table style="width:50%">
+	<table align="center" cellpadding="0" cellspacing="0" border="0" class="profile-navigation">
 		<tr>
-			<td><button id="button_blabs" onclick="show('blabs')" align="center" style="width:95%;" class="btn btn-success">Blabs<br/><b>{{blabCount}}</b></button></td>
-			<td><button id="button_following" onclick="show('following')" align="center" style="width:95%;" class="btn btn-default">Following<br/><b>{{followingCount}}</b></button></td>
-			<td><button id="button_followers" onclick="show('followers')" align="center" style="width:95%;" class="btn btn-default">Followers<br/><b>{{followersCount}}</b></button></td>
-			<td><button id="button_favourites" onclick="show('favourites')" align="center" style="width:95%;" class="btn btn-default">Favourites<br/><b>{{favouriteBlabCount}}</b></button></td>
+			<td><button class="navbutton-selected" id="button_blabs" onclick="show('blabs')">Blabs<br/><b>{{blabCount}}</b></button></td>
+			<td><button class="navbutton" id="button_following" onclick="show('following')">Following<br/><b>{{followingCount}}</b></button></td>
+			<td><button class="navbutton" id="button_followers" onclick="show('followers')">Followers<br/><b>{{followersCount}}</b></button></td>
+			<td><button class="navbutton" id="button_favourites" onclick="show('favourites')">Favourites<br/><b>{{favouriteBlabCount}}</b></button></td>
 		</tr>
 	</table>
+
 
 	<br/>
 
@@ -66,27 +88,17 @@
 	</div>
 
 	<script type="text/javascript">
-		function following_onMouseEnter() {
-			var button = document.getElementById("unfollow_button");
-			button.textContent = "Unfollow!";
-			button.className = "btn btn-danger";
-		}
-		function following_onMouseLeave() {
-			var button = document.getElementById("unfollow_button");
-			button.textContent = "Following";
-			button.className = "btn btn-primary";
-		}
 		function show(name) {
 			var navigation = ["blabs", "following", "followers", "favourites"];
 			for (var index = 0; index < navigation.length; index++) {
 				var list = document.getElementById(navigation[index]);
 				var nav_button = document.getElementById("button_" + navigation[index]);
 				list.style.display = "none";
-				nav_button.className = "btn btn-default";
+				nav_button.className = "navbutton";
 			}
 
 			document.getElementById(name).style.display = "block";
-			document.getElementById("button_" + name).className = "btn btn-success";
+			document.getElementById("button_" + name).className = "navbutton-selected";
 		}
 	</script>
 

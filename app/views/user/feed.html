@@ -3,25 +3,39 @@
 	{% import "macros/list.html" as list %}
 
 	{% if feedType == "global" %}
-		<h1>Global Feed</h1>
+		<h1 align="center">Global Feed</h1>
 	{% else %}
-		<h1>Personalized Feed</h1>
+		<h1 align="center">Personalized Feed</h1>
 	{% endif %}
 
 
 	{% if message %}
-		<div class="alert alert-success">{{message}}</div>
+		<div align="center">
+			<div class="alert-success">
+				<div align="center">{{message}}</div>
+			</div>
+		</div>
 	{% endif %}
 
-	{% if error %}
-		<div class="alert alert-danger">{{error}}</div>
+	{% if errors %}
+		<div align="center">
+			<div class="alert-danger">
+				<table>
+					{% for error in errors %}
+						<tr><td><div align="center">{{error}}</div></td></tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
 	{% endif %}
-
-	<p>
+	<!--
+	<div align="center">
 		<a href="{{base_path}}/blab/new" class="btn btn-success">New Blab <span class="glyphicon glyphicon-plus"/></a>
-	</p>
+	</div>
+-->
+
+	<br/>
 
 	{{list.create_blab_list(blabs)}}
-	</table>
 
 {% endblock %}

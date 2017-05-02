@@ -1,27 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-  	<h1>Write a New Blab</br>&emsp;<small>Share your insightful opinions.</small></h1>
+  	<h1 align="center">Write a New Blab</h1>
 
-  	{% if errors %}
-  		<div class="alert alert-danger">
-  			<ul>
-  				{% for error in errors %}
-  					<li>{{error}}</li>
-  				{% endfor %}
-  			</ul>
+    {% if errors %}
+  		<div align="center">
+  			<div class="alert-danger">
+  				<table>
+  					{% for error in errors %}
+  						<tr><td><div align="center">{{error}}</div></td></tr>
+  					{% endfor %}
+  				</table>
+  			</div>
   		</div>
   	{% endif %}
 
+  <br/>
 
-	<form method="post" action="{{base_path}}/blab/new">
-    <input type="hidden" value={{user_logged_in.name}} name="username"/>
-		<div class="form-group">
-			<label>Write a new Blab!</label>
-			<input type="text" name="body" class="form-control" maxlength="256">
-		</div>
+  <div align="center">
+    <div style="width: 900px;">
+    	<form method="post" action="{{base_path}}/blab/new">
+        <input type="hidden" value={{user_logged_in.name}} name="username"/>
+    		<div class="form-group">
+    			<textarea class="form-control" name="body" maxlength="256" rows="5"></textarea>
+    		</div>
 
-		<div class="form-group">
-			<button type="submit" class="btm btm-primary">Send!</button>
-		</div>
-	</form>
+    		<div class="form-group">
+    			<button type="submit" class="navbutton-selected">Send!</button>
+    		</div>
+    	</form>
+    </div>
+  </div>
 {% endblock %}

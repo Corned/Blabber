@@ -14,9 +14,335 @@
 		{% block head %}
 			<!-- Bootstrap (tyylitiedosto) -->
 			<link href="{{base_path}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
 			<!-- Oma tyylitiedostomme -->
 			<link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
+
+			<style>
+				/* Main Elements */
+				::-webkit-scrollbar {
+					display: none;
+				}
+
+				body {
+					background-color: #AD2626;
+				}
+
+				h1 {
+					color: white;
+					font-family: monospace;
+					font-size: 100px;
+					line-height: 110px;
+					margin-bottom: 25px;
+				}
+
+				h2 {
+					color: white;
+					font-family: monospace;
+					font-size: 40px;
+					margin-top: 15px;
+					margin-bottom: 15px;
+				}
+
+				textarea {
+					border: none !important;
+					box-shadow: none !important;
+					outline: none !important;
+					border-radius: 0px;
+					-webkit-border-radius: 0px;
+					-moz-border-radius: 0px;
+					text-align: left;
+					font-family: monospace;
+				}
+
+				textarea:focus {
+					border: none !important;
+					box-shadow: none !important;
+					outline: none !important;
+				}
+
+				input {
+					border: none !important;
+					box-shadow: none !important;
+					outline: none !important;
+					border-radius: 0px;
+					-webkit-border-radius: 0px;
+					-moz-border-radius: 0px;
+					text-align: left;
+					font-family: monospace;
+				}
+
+				input:focus {
+					border: none !important;
+					box-shadow: none !important;
+					outline: none !important;
+				}
+
+				p {
+					color: white;
+					font-family: monospace;
+					font-size: 15px;
+				}
+
+				/* Blab related */
+				.blab-body {
+					color: black;
+					font-size: 15px;
+					margin: 2px;
+				}
+
+				.blab-list {
+					border-collapse: collapse;
+					width: 900px;
+				}
+
+				.blab-list th {
+					background-color: #F44242;
+					color: white;
+					font-weight: bold;
+				}
+
+				.blab-list th, td {
+					font-family: monospace;
+					padding: 8px;
+					text-align: left;
+				}
+
+				.blab-list tr:nth-child(odd) {
+					background-color: #F2F2F2;
+				}
+
+				.blab-list tr:nth-child(even) {
+					background-color: #DDDDDD;
+				}
+
+				/* Profile Page Related */
+				.account-description-panel {
+					background-color: #F44242;
+					height: auto;
+					max-height: 300px;
+					padding: 15px;
+					text-overflow: clip;
+					width: 900px;
+				}
+
+				.account-description {
+					font-size: 25px;
+				}
+
+				/* Profile page navigation */
+				.profile-navigation {
+					background-color: Transparent;
+					border-collapse: collapse;
+					padding: 0px;
+					width: 900px;
+				}
+
+				.profile-navigation td {
+					padding: 0px;
+					border-spacing: 0px;
+				}
+
+				.profile-navigation td {
+					border-spacing: 0px;
+				}
+
+				.navbutton {
+					border: none !important;
+					box-shadow: none !important;
+					outline: none !important;
+					background-color: white;
+					border: 0;
+					box-shadow: none;
+					color: #969696;
+					font-family: monospace;
+					font-size: 30px;
+					height: 100%;
+					-webkit-appearance: none;
+					width: 100%;
+				}
+
+				.navbutton-selected {
+					border: none !important;
+					box-shadow: none !important;
+					outline: none !important;
+					background-color: #F2F2F2;
+					border: 0;
+					box-shadow: none;
+					color: #515151;
+					font-family: monospace;
+					font-size: 30px;
+					height: auto;
+					-webkit-appearance: none;
+					width: 100%;
+				}
+
+				.navbutton:focus & .navbutton-selected:focus {
+					border: none !important;
+					box-shadow: none !important;
+					outline: none !important;
+				}
+
+				/* Profile Page: Follow Button Related */
+				.follow-panel {
+					width: 900px;
+				}
+
+				.follow-button-unfollow {
+					background-color: white;
+					border: 0;
+					box-shadow: none;
+					color: red;
+					font-family: monospace;
+					font-size: 30px;
+					height: auto;
+					-webkit-appearance: none;
+					width: 100%;
+				}
+
+				.follow-button {
+					background-color: white;
+					border: 0;
+					box-shadow: none;
+					color: green;
+					font-family: monospace;
+					font-size: 30px;
+					height: auto;
+					-webkit-appearance: none;
+					width: 100%;
+				}
+
+				.follow-button-disabled {
+					background-color: white;
+					border: 0;
+					box-shadow: none;
+					color: #969696;
+					font-family: monospace;
+					font-size: 30px;
+					height: auto;
+					-webkit-appearance: none;
+					width: 100%;
+				}
+
+				.follow-button-login {
+					background-color: white;
+					border: 0;
+					box-shadow: none;
+					color: #515151;
+					font-family: monospace;
+					font-size: 30px;
+					height: auto;
+					-webkit-appearance: none;
+					width: 100%;
+				}
+
+
+				/* User List */
+				.user-list {
+					width: auto;
+					max-width: 1500px;
+				}
+
+				.user-list th {
+					background-color: #F44242;
+					color: white;
+					font-family: monospace;
+					font-weight: bold;
+					padding-left: 10px;
+				}
+
+				.user-list tr {
+					height: auto;
+					width: 33%;
+				}
+
+				.user-list-row:nth-child(even) .user-list-user:nth-child(even) {
+					background-color: #DDDDDD;
+				}
+
+				.user-list-row:nth-child(even) .user-list-user:nth-child(odd) {
+					background-color: #F2F2F2;
+				}
+
+				.user-list-row:nth-child(odd) .user-list-user:nth-child(even) {
+					background-color: #F2F2F2;
+				}
+
+				.user-list-row:nth-child(odd) .user-list-user:nth-child(odd) {
+					background-color: #DDDDDD;
+				}
+
+				.user-list-user {
+					width: 33%;
+					height: auto;
+				}
+
+				.user-list-profile-picture {
+					max-width: 100px;
+				}
+
+				.user-list-profile-picture img {
+					width: 75px;
+					height: 75px;
+				}
+
+				.user-list-information p, a {
+					color: black;
+				}
+
+				.user-list-information .username {
+					color: gray;
+				}
+
+				/* Settings Warning Buttons */
+				.button-warning {
+						background-color: #D24D57;
+						border: 0;
+						box-shadow: none;
+						color: #FFFFFF;
+						font-family: monospace;
+						font-size: 30px;
+						height: auto;
+						-webkit-appearance: none;
+						width: 100%;
+				}
+
+				/* */
+				.navbar.navbar-default, .navbar-toggle.collapsed {
+					background-color: #333;
+					border: 0px;
+					border-radius: 0px;
+				}
+
+				.navbar-link {
+					color: white;
+					font-weight: bold;
+					font-family: monospace;
+					margin-bottom: 0px;
+				}
+
+				/* messages */
+				.alert-danger {
+					background-color: #EC644B;
+					color: white;
+					font-family: monospace;
+					font-size: 20px;
+
+					margin: 20px;
+					width: 900px;
+				}
+
+				.alert-success {
+					background-color: #A2DED0;
+					color: white;
+					font-family: monospace;
+					font-size: 20px;
+
+					margin: 20px;
+					width: 900px;
+				}
+			</style>
+
+
 		{% endblock %}
 	</head>
 
@@ -38,11 +364,11 @@
 				<div class="collapse navbar-collapse" id="navigation">
 					<ul class="nav navbar-nav">
 						<!-- Navigaation linkit -->
-						<li><a href="{{base_path}}/blab/new">New Blab!</a></li>
-						<li><a href="{{base_path}}/globalfeed">Global Feed</a></li>
-						<li><a href="{{base_path}}/feed">Personalized Feed</a></li>
-						<li><a href="{{base_path}}/profile">My Profile</a></li>
-						<li><a href="{{base_path}}/settings">My Settings</a></li>
+						<li><a href="{{base_path}}/blab/new"><p class="navbar-link">New Blab!</p></a></li>
+						<li><a href="{{base_path}}/globalfeed"><p class="navbar-link">Global Feed</p></a></li>
+						<li><a href="{{base_path}}/feed"><p class="navbar-link">Personalized Feed</p></a></li>
+						<li><a href="{{base_path}}/profile"><p class="navbar-link">My Profile</p></a></li>
+						<li><a href="{{base_path}}/settings"><p class="navbar-link">My Settings</p></a></li>
 						<li>
 
 						</li>

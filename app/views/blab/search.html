@@ -2,23 +2,11 @@
 	{% block content %}
 	{% import "macros/list.html" as list %}
 
-	<h1>Search Results</h1>
+	<h1 align="center">Search Results</h1>
 
-
-	{% if message %}
-		<div class="alert alert-success">{{message}}</div>
-	{% endif %}
-
-	{% if error %}
-		<div class="alert alert-danger">{{error}}</div>
-	{% endif %}
-
-	<h2>Users</h2>
+	<h2 align="center">Found Users</h2>
 	{{list.create_user_list(users, userCount)}}
 
-	<h2>Blabs</h2>
+	<h2 align="center">Found Blabs</h2>
 	{{list.create_blab_list(blabs)}}
-
-
-
 {% endblock %}

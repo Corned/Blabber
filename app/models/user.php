@@ -196,7 +196,7 @@
 				if ($this->validate_string_length_shorter_than($this->username, 3)) {
 					// I cannot compare $this->body to null.
 					// unexpected T_VARIABLE
-					$errs[] = "Your username must be at least three characters long!\n";
+					$errs[] = "Your username must be at least three characters long.";
 				}
 
 				if ($this->validate_string_length_longer_than($this->username, 20)) {
@@ -211,7 +211,7 @@
 		    		$errs[] = "Username already taken.";
 		    	}
 		   	} else {
-		   		$errs[] = "Username cannot be null";
+		   		$errs[] = "Username cannot be null.";
 		   	}
 
 			return $errs;
@@ -225,7 +225,7 @@
 
 			if ($this->is_not_null($this->username) == true) {
 				if ($this->validate_string_length_shorter_than($this->password, 6)) {
-					$errs[] = "Your password must be at least six characters long!\n";
+					$errs[] = "Your password must be at least six characters long.";
 				}
 
 				if ($this->validate_string_length_longer_than($this->password, 32)) {
