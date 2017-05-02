@@ -163,4 +163,21 @@
 
 	    	Redirect::to("/profile/" . $username, array("message" => $message, "follows" => $followStatus));
 	    }
+
+	    // Destroy account
+	    public static function destroy_account() {
+	    	self::check_logged_in();
+	    	$id = self::get_user_logged_in()->id;
+
+	    	// Destroy likes by account id
+	    	Blab::destroy_likes_by_account_id($id);
+	    	// Destroy blabs by account id
+	    	Blab::destroy_blabs_by_account_id($id);
+	    	// Destroy follows by account id
+	    	User::destroy_follows_by_account_id($id);
+	    	// Destroy account
+	    	User::destroy($id);
+
+	    	self::logout();
+	    }
 	}

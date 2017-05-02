@@ -188,6 +188,18 @@
 			return $users;
 		}
 
+		public static function destroy($id) {
+			$query = DB::connection()->prepare('DELETE FROM Account WHERE Account.id = :id');
+			$query->bindValue(':id', $id, PDO::PARAM_INT);
+			$query->execute();
+		}
+
+		public static function destroy_follows_by_account_id($id) {
+			$query = DB::connection()->prepare('DELETE FROM Follow WHERE Follow.account_id = :id OR Follow.follower_id = :id');
+			$query->bindValue(':id', $id, PDO::PARAM_INT);
+			$query->execute();
+		}
+
 		// Validoi käyttäjänimen
 		public function validate_username() {
 			$errs = array();

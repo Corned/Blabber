@@ -225,6 +225,18 @@
 			$query->execute();
 		}
 
+		public static function destroy_blabs_by_account_id($id) {
+			$query = DB::connection()->prepare('DELETE FROM Blab WHERE Blab.account_id = :id');
+			$query->bindValue(':id', $id, PDO::PARAM_INT);
+			$query->execute();
+		}
+
+		public static function destroy_likes_by_account_id($id) {
+			$query = DB::connection()->prepare('DELETE FROM Favourite WHERE Favourite.account_id = :id');
+			$query->bindValue(':id', $id, PDO::PARAM_INT);
+			$query->execute();
+		}
+
 		// Validoi blabin sisällön
 		public function validate_body() {
 			$errs = array();

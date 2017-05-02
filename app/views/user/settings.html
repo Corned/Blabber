@@ -28,19 +28,19 @@
 
 	<div align="center">
 		<div style="width: 900px;">
-		  <form method="post" action="{{base_path}}/settings/update_description">
-		      <input type="hidden" value="{{user.id}}" name="id"/>
-		      <input type="hidden" value="{{user.username}}" name="username"/>
-		      <input type="hidden" value="{{user.password}}" name="password"/>
-				  <input type="hidden" value="{{user.description}}" name="olddescription"/>
-		      <div class="form-group">
-		          <p>Tell us about yourself:</p>
-		          <textarea class="form-control" name="newdescription" rows="5" maxlength="256">{{user.description}}</textarea>
-		      </div>
-		      <div class="form-group">
-		          <button type="submit" class="navbutton">Update Description</button>
-		      </div>
-		  </form>
+			<form method="post" action="{{base_path}}/settings/update_description">
+				<input type="hidden" value="{{user.id}}" name="id"/>
+				<input type="hidden" value="{{user.username}}" name="username"/>
+				<input type="hidden" value="{{user.password}}" name="password"/>
+				<input type="hidden" value="{{user.description}}" name="olddescription"/>
+				<div class="form-group">
+					<p>Tell us about yourself:</p>
+					<textarea class="form-control" name="newdescription" rows="5" maxlength="256">{{user.description}}</textarea>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="navbutton">Update Description</button>
+				</div>
+		  	</form>
 
 			<br/>
 			<br/>
@@ -51,7 +51,7 @@
 			<br/>
 			<br/>
 			<form id="confirm_delete" method="post" action="{{base_path}}/delete_account" hidden>
-				<button type="submit" class="button-warning" disabled>Confirm?</button>
+				<button type="submit" class="button-warning">Confirm?</button>
 			</form>
 
 		</div>

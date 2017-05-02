@@ -97,7 +97,7 @@
     });
 
     $routes->post("/delete_account/", function() {
-        UserController::settings();
+        UserController::destroy_account();
     });
 
     $routes->get("/hiekkalaatikko", function() {
